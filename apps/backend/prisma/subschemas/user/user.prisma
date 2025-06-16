@@ -1,0 +1,53 @@
+import { Address } from "../address/address"
+import { Tenant } from "../tenant/tenant"
+
+model Post {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    content   String?
+    published Boolean  @default(false)
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  Int
+}
+
+model Profile {
+    id        Int      @id @default(autoincrement())
+    bio       String?
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int      @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model User {
+    id        Int       @id @default(autoincrement())
+    email     String    @unique
+    name      String?
+    posts     Post[]
+    profile   Profile?
+    role      UserRole  @default(USER)
+    password  String?
+    tokens    Token[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    addresses Address[]
+    tenant    Tenant?
+}
+
+
+model Token {
+    id         Int      @id @default(autoincrement())
+    token      String
+    expirestAt DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    user       User?    @relation(fields: [userId], references: [id])
+    userId     Int?
+}
+
+enum UserRole {
+    USER
+    ADMIN
+}

@@ -1,0 +1,1 @@
+export const tokenExpiry = '365d';

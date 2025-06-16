@@ -1,0 +1,18 @@
+import { Address } from "../address/address"
+import { User } from "../user/user"
+
+model Tenant {
+    id        Int      @id @default(autoincrement())
+    name      String
+    phone     String
+    email     String
+    website   String?
+    lat       Float
+    long      Float
+    logo      String?
+    address   Address?
+    userId    Int?     @unique
+    user      User?    @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

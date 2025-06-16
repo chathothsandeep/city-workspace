@@ -1,0 +1,108 @@
+//🧩Don't Edit this file.✨Generated in Fri Jun 13 2025 10:36:51 GMT+0530 (India Standard Time)✨
+
+model Address {
+  id         Int      @id @default(autoincrement())
+  fullName   String
+  mobile     String
+  addressOne String
+  adrressTwo String?
+  latitude   Float
+  longitude  Float
+  zip        Int?
+  landmark   String?
+  country    String
+  state      String
+  city       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     Int?
+  tenantId   Int?     @unique
+  tenant     Tenant?  @relation(fields: [tenantId], references: [id])
+}
+
+generator custom_generator {
+  provider = "prisma-generator-fake-data"
+  output   = "./types/fake-data.ts"
+}
+
+generator typescriptInterfaces {
+  provider = "prisma-generator-typescript-interfaces"
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  email     String
+  website   String?
+  lat       Float
+  long      Float
+  logo      String?
+  address   Address?
+  userId    Int?     @unique
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  bio       String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  posts     Post[]
+  profile   Profile?
+  role      UserRole  @default(USER)
+  password  String?
+  tokens    Token[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  addresses Address[]
+  tenant    Tenant?
+}
+
+model Token {
+  id         Int      @id @default(autoincrement())
+  token      String
+  expirestAt DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     Int?
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
