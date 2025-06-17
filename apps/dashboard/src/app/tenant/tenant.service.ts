@@ -17,10 +17,6 @@ export class TenantService {
     const formData = new FormData();
     formData.append('data', JSON.stringify(data));
     if (file) formData.append('file', file);
-      return this.http.post<TenantEntity>(ApiUrl.tenant, formData, {
-        headers: {
-            Authorization: `Bearer ${this.auth.getToken()}`,
-        },
-    });
+    return this.http.post<TenantEntity>(ApiUrl.tenant, formData);
   }
 }

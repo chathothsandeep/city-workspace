@@ -55,6 +55,7 @@ export class TenantComponent implements OnInit {
       lat: new FormControl(0, [Validators.required]),
       long: new FormControl(0, [Validators.required]),
       logo: new FormControl(''),
+      userId: new FormControl(this.userId),
     });
   }
 
@@ -62,7 +63,6 @@ export class TenantComponent implements OnInit {
     this.tenant = null;
     this.alertService.clearMessages();
     const dto: CreateTenantDto = this.formData.value;
-    dto.userId = this.userId ?? undefined;
     if (this.formData.valid) {
       this.loading.set(true);
       this.tenantService.createTenant(dto, this.file)?.subscribe({
@@ -93,16 +93,16 @@ export class TenantComponent implements OnInit {
 
   fetchLocation() {
     this.visible = false;
-    this.formData.patchValue({
-      lat: 11.6345873,
-      long: 104.999927,
-    });
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.formData.patchValue({
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        });
+        if (position) {
+          this.formData.patchValue({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          });
+        } else {
+          this.alertService.showError('Unable to fetch location');
+        }
       },
       (error) => {
         this.alertService.showError(
