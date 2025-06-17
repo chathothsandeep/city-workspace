@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Fri Jun 13 2025 10:36:51 GMT+0530 (India Standard Time)✨
+//🧩Don't Edit this file.✨Generated in Tue Jun 17 2025 10:35:54 GMT+0530 (India Standard Time)✨
 
 model Address {
   id         Int      @id @default(autoincrement())
@@ -39,6 +39,19 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  name         String
+  features     String[]
+  isPopular    Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  cost         Float
+  priceSymbol  String
+  costDuration String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Tenant {

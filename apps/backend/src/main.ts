@@ -7,6 +7,8 @@ import { corsOptions } from './lib/corsOptions';
 import { AppValidationPipe } from './pipes/validation.pipe';
 import * as path from 'path';
 import * as express from 'express';
+import { ValidationPipe } from '@nestjs/common';
+import { validationPipeOption } from './lib/validationPipeOPtions';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +18,7 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   app.enableCors(corsOptions(config));
-  app.useGlobalPipes(new AppValidationPipe());
+  app.useGlobalPipes(new ValidationPipe(validationPipeOption));
   app.setGlobalPrefix('api/v1');
   await app.listen(config.get('general.port') ?? 8000);
 }

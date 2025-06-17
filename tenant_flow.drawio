@@ -152,7 +152,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="iBBmpX7QMeskrRRBkz4k" name="ENTITIES">
-    <mxGraphModel dx="2466" dy="1248" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1776" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -211,6 +211,12 @@
             <mxPoint x="-250" y="940" as="sourcePoint" />
             <mxPoint x="-60" y="760" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="QJMoXIFyPoKrzHyIwkFg-1" value="Subscription" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-420" y="530" width="160" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="QJMoXIFyPoKrzHyIwkFg-2" value="+id: int&lt;br&gt;+name: string&lt;br&gt;+&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;features [string]&lt;/font&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;+isPopular: boolean&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;+isActive: boolean&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;+cost: float&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;+priceSymbol: string&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(177, 216, 225); background-color: rgb(13, 17, 23); white-space: pre;&quot;&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;font-size: 11px;&quot;&gt;+costDuration: string&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" vertex="1" parent="QJMoXIFyPoKrzHyIwkFg-1">
+          <mxGeometry y="50" width="160" height="140" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

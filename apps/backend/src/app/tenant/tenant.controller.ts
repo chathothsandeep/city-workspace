@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
   Query,
@@ -42,6 +43,14 @@ export class TenantController {
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdateTenantDto) {
     return this.tenantService.update(id, data);
+  }
+
+  @Patch(':id')
+  updateFew(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateTenantDto,
+  ) {
+    return this.tenantService.updateFew(id, data);
   }
 
   @Delete(':id')

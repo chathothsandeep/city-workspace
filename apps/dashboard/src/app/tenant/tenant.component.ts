@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../lib/services/alert.service';
 import { Dialog } from 'primeng/dialog';
 import { WebUrl } from '../../lib/constants/url.constants';
+import { CookieService } from 'ngx-cookie-service';
+import { AppConstants } from '../../lib/constants/app.constants';
+import { AuthService } from '../../lib/services/auth.service';
 
 @Component({
   selector: 'app-tenant',
@@ -35,10 +38,15 @@ export class TenantComponent implements OnInit {
   loading = signal(false);
   private router = inject(Router);
   private alertService = inject(AlertService);
+  private cookieService = inject(CookieService);
+  private authService = inject(AuthService);
+
   visible = false;
   file: File | undefined = undefined;
+  userId: number | undefined = undefined;
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
     this.formData = new FormGroup({
       name: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
@@ -51,10 +59,10 @@ export class TenantComponent implements OnInit {
   }
 
   onCreateTenant() {
-    console.log('Creating tenant...', this.formData.value);
     this.tenant = null;
     this.alertService.clearMessages();
     const dto: CreateTenantDto = this.formData.value;
+    dto.userId = this.userId ?? undefined;
     if (this.formData.valid) {
       this.loading.set(true);
       this.tenantService.createTenant(dto, this.file)?.subscribe({
@@ -62,15 +70,13 @@ export class TenantComponent implements OnInit {
           this.loading.set(false);
           this.tenant = tenant;
           this.alertService.showSuccess('Tenant created successfully');
+          this.cookieService.set(AppConstants.tenantId, tenant.id.toString());
           await this.router.navigate([WebUrl.subscription]);
         },
         error: (error) => {
           this.loading.set(false);
-          this.alertService.showError(
-            JSON.stringify(
-              error.error.message.message ? error.error.message.message : error,
-            ),
-          );
+          const errorMessage = error.error.message?.message || error;
+          this.alertService.showError(JSON.stringify(errorMessage));
         },
       });
     }

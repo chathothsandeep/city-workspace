@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Query,
   Put,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRoles } from '@city-workspace/common-utils';
@@ -32,6 +33,14 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(id, updateUserDto);
+  }
+
+  @Patch(':id')
+  updateFew(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.userService.updateFew(id, updateUserDto);
   }
 
   @Delete(':id')

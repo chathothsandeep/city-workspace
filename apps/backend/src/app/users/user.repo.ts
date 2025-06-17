@@ -7,7 +7,6 @@ import { db } from '../../lib/db';
 
 @Injectable()
 export class UserRepo implements CrudService<UserEntity> {
-  
   create(data: any): Promise<UserEntity> {
     throw new Error('Method not implemented.');
   }
@@ -38,6 +37,16 @@ export class UserRepo implements CrudService<UserEntity> {
   }
 
   async update(id: number, data: UpdateUserDto): Promise<UserEntity | null> {
+    return await db.user.update({
+      where: {
+        id: id,
+      },
+      data: data,
+      select: selectedUserFields,
+    });
+  }
+
+  async updateFew(id: number, data: UpdateUserDto): Promise<UserEntity | null> {
     return await db.user.update({
       where: {
         id: id,

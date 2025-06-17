@@ -26,13 +26,21 @@ export class CreateTenantDto {
   @IsString()
   logo?: string;
 
+  @IsOptional()
+  @IsNumber()
+  subscriptionId?: number;
+
+  @IsOptional()
+  @IsNumber()
+  userId?: number;
+
   constructor(data?: Partial<CreateTenantDto>) {
     Object.assign(this, data);
   }
 }
 
 export class UpdateTenantDto extends PartialType(CreateTenantDto) {
-    constructor(data?: Partial<UpdateTenantDto>) {
+  constructor(data?: Partial<UpdateTenantDto>) {
     super(data);
   }
 }

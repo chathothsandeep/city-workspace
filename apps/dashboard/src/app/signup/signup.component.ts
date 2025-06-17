@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignupService } from './signup.service';
@@ -51,28 +50,22 @@ export class SignupComponent implements OnInit {
     this.alertService.clearMessages();
     const dto: CreateUserDto = this.signupForm.value;
     dto.role = UserRoles.ADMIN;
-      const { confirmPassword: _, ...rest } = dto;
-      if (this.signupForm.valid) { 
-        this.loading.set(true);
-        this.signupService.signup(rest)?.subscribe({
-          next: async (user: UserEntity) => {
-            this.loading.set(false);
-            this.user = user;
-            this.alertService.showSuccess('User created successfully!');
-            await this.router.navigate([WebUrl.signin]);
-          },
-          error: (error) => {
-            this.loading.set(false);
-            this.alertService.showError(
-              JSON.stringify(
-                error.error.message.message
-                  ? error.error.message.message
-                  : error,
-              ),
-            );
-          },
-        });
-      }
-    
+    const { confirmPassword: _, ...rest } = dto;
+    if (this.signupForm.valid) {
+      this.loading.set(true);
+      this.signupService.signup(rest)?.subscribe({
+        next: async (user: UserEntity) => {
+          this.loading.set(false);
+          this.user = user;
+          this.alertService.showSuccess('User created successfully!');
+          await this.router.navigate([WebUrl.signin]);
+        },
+        error: (error) => {
+          this.loading.set(false);
+          const errorMessage = error.error.message?.message || error;
+          this.alertService.showError(JSON.stringify(errorMessage));
+        },
+      });
+    }
   }
 }

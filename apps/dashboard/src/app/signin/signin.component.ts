@@ -68,11 +68,8 @@ export class SigninComponent implements OnInit {
         },
         error: (error) => {
           this.loading.set(false);
-          this.alertService.showError(
-            JSON.stringify(
-              error.error.message.message ? error.error.message.message : error,
-            ),
-          );
+          const errorMessage = error.error.message?.message || error;
+          this.alertService.showError(JSON.stringify(errorMessage));
         },
       });
     }

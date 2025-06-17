@@ -7,3 +7,5 @@ export * from './address/address.dto';
 export * from './address/address.entity';
 export * from './tenant/teanant.dto';
 export * from './tenant/tenant.entity';
+export * from './subscription/subscription.dto';
+export * from './subscription/subscription.entity';

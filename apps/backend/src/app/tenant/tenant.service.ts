@@ -58,6 +58,18 @@ export class TenantService implements CrudService<TenantEntity> {
       HttpErrorHelper.handleError(error);
     }
   }
+
+  async updateFew(id: number, data: any): Promise<TenantEntity | null> {
+    try {
+      const tenant = await this.repo.updateFew(id, data);
+      if (!tenant) {
+        throw new HttpException('Tenant Not Found', HttpStatus.NOT_FOUND);
+      }
+      return tenant;
+    } catch (error) {
+      HttpErrorHelper.handleError(error);
+    }
+  }
   async delete(id: number): Promise<TenantEntity | null> {
     try {
       const tenant = await this.repo.delete(id);

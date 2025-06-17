@@ -139,6 +139,19 @@ exports.Prisma.AddressScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  features: 'features',
+  isPopular: 'isPopular',
+  isActive: 'isActive',
+  cost: 'cost',
+  priceSymbol: 'priceSymbol',
+  costDuration: 'costDuration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -211,6 +224,7 @@ exports.UserRole = exports.$Enums.UserRole = {
 
 exports.Prisma.ModelName = {
   Address: 'Address',
+  Subscription: 'Subscription',
   Tenant: 'Tenant',
   Post: 'Post',
   Profile: 'Profile',

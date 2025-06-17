@@ -4,7 +4,7 @@ import {
   UpdateTenantDto,
 } from '@city-workspace/shared-models';
 import { CrudService } from '../../lib/crud';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,6 +13,7 @@ import { selectedTenantFields } from '../../lib/selectedFileds/tenantFields';
 import { LogHelper } from '../../lib/helpers/log.helper';
 import { db } from '../../lib/db';
 
+@Injectable()
 export class TenantRepo implements CrudService<TenantEntity> {
   async create(
     data: CreateTenantDto,
@@ -27,7 +28,6 @@ export class TenantRepo implements CrudService<TenantEntity> {
   }
   async findAll(params: { [key: string]: any }): Promise<TenantEntity[]> {
     const tenants = await db.tenant.findMany();
-    LogHelper.getInstance().log(tenants, 'repo');
     return tenants;
   }
   async find(id: number): Promise<TenantEntity | null> {
@@ -39,6 +39,19 @@ export class TenantRepo implements CrudService<TenantEntity> {
     });
   }
   async update(
+    id: number,
+    data: UpdateTenantDto,
+  ): Promise<TenantEntity | null> {
+    return await db.tenant.update({
+      where: {
+        id: id,
+      },
+      data: data,
+      select: selectedTenantFields,
+    });
+  }
+
+  async updateFew(
     id: number,
     data: UpdateTenantDto,
   ): Promise<TenantEntity | null> {

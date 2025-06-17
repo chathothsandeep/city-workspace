@@ -13,6 +13,7 @@ import { GlobalModule } from '../global/global.module';
 
 import { AddressModule } from './address/address.module';
 import { TenantModule } from './tenant/tenant.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TenantModule } from './tenant/tenant.module';
     AuthModule,
     AddressModule,
     TenantModule,
+    SubscriptionModule,
   ],
   controllers: [],
   providers: [Logger, AppThrottleGuardProvider, GlobalAuthGuardProvider],

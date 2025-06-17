@@ -23,6 +23,19 @@ export interface Address {
   tenant?: Tenant | null;
 }
 
+export interface Subscription {
+  id: number;
+  name: string;
+  features: string[];
+  isPopular: boolean;
+  isActive: boolean;
+  cost: number;
+  priceSymbol: string;
+  costDuration: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Tenant {
   id: number;
   name: string;

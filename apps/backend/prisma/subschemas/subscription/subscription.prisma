@@ -1,0 +1,15 @@
+import { Tenant } from "../tenant/tenant"
+
+model Subscription {
+    id           Int      @id @default(autoincrement())
+    name         String
+    features     String[]
+    isPopular    Boolean  @default(false)
+    isActive     Boolean  @default(true)
+    cost         Float
+    priceSymbol  String
+    costDuration String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    Tenant       Tenant[]
+}

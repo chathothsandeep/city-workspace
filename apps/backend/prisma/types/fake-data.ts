@@ -40,6 +40,30 @@ export function fakeAddressComplete() {
     tenantId: undefined,
   };
 }
+export function fakeSubscription() {
+  return {
+    name: faker.person.fullName(),
+    features: faker.lorem.words(5).split(' '),
+    cost: faker.number.float(),
+    priceSymbol: faker.lorem.words(5),
+    costDuration: faker.lorem.words(5),
+    updatedAt: faker.date.anytime(),
+  };
+}
+export function fakeSubscriptionComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    name: faker.person.fullName(),
+    features: faker.lorem.words(5).split(' '),
+    isPopular: false,
+    isActive: true,
+    cost: faker.number.float(),
+    priceSymbol: faker.lorem.words(5),
+    costDuration: faker.lorem.words(5),
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+  };
+}
 export function fakeTenant() {
   return {
     name: faker.person.fullName(),

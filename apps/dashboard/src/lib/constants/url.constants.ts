@@ -13,4 +13,5 @@ export class ApiUrl {
   public static signIn = `${ApiUrl.BASE_URL}/auth/login`;
   public static tenant = `${ApiUrl.BASE_URL}/tenant`;
   public static tenantLogo = `${ApiUrl.BASE_URL}/tenant/logo`;
+  public static subscription = `${ApiUrl.BASE_URL}/subscription`;
 }

@@ -43,6 +43,18 @@ export class UserService {
     }
   }
 
+  async updateFew(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      const updatedUser = await this.repo.updateFew(id, updateUserDto);
+      if (!updatedUser) {
+        throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+      }
+      return updatedUser;
+    } catch (error) {
+      HttpErrorHelper.handleError(error);
+    }
+  }
+
   async delete(id: number) {
     try {
       const deletedUser = await this.repo.delete(id);
