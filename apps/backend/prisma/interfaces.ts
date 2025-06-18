@@ -34,6 +34,7 @@ export interface Subscription {
   costDuration: string;
   createdAt: Date;
   updatedAt: Date;
+  Tenant?: Tenant[];
 }
 
 export interface Tenant {
@@ -50,6 +51,8 @@ export interface Tenant {
   user?: User | null;
   createdAt: Date;
   updatedAt: Date;
+  subscriptionId: number | null;
+  subscription?: Subscription | null;
 }
 
 export interface Post {

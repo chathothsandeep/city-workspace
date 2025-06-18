@@ -4,6 +4,7 @@ import {
   IsIn,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -43,6 +44,10 @@ export class CreateSubscriptionDto {
     message: 'Cost duration must be either "month" or "year"',
   })
   costDuration!: string;
+
+  @IsNumber()
+  @IsOptional()
+  subscriptionId!: number;
 
   constructor(data?: Partial<CreateSubscriptionDto>) {
     Object.assign(this, data);

@@ -1428,6 +1428,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SubscriptionCountOutputType
+   */
+
+  export type SubscriptionCountOutputType = {
+    Tenant: number
+  }
+
+  export type SubscriptionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Tenant?: boolean | SubscriptionCountOutputTypeCountTenantArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SubscriptionCountOutputType without action
+   */
+  export type SubscriptionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionCountOutputType
+     */
+    select?: SubscriptionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SubscriptionCountOutputType without action
+   */
+  export type SubscriptionCountOutputTypeCountTenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -3019,6 +3050,8 @@ export namespace Prisma {
     costDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Tenant?: boolean | Subscription$TenantArgs<ExtArgs>
+    _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3061,10 +3094,18 @@ export namespace Prisma {
   }
 
   export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "features" | "isPopular" | "isActive" | "cost" | "priceSymbol" | "costDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Tenant?: boolean | Subscription$TenantArgs<ExtArgs>
+    _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Subscription"
-    objects: {}
+    objects: {
+      Tenant: Prisma.$TenantPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -3470,6 +3511,7 @@ export namespace Prisma {
    */
   export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Tenant<T extends Subscription$TenantArgs<ExtArgs> = {}>(args?: Subset<T, Subscription$TenantArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3526,6 +3568,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * Filter, which Subscription to fetch.
      */
     where: SubscriptionWhereUniqueInput
@@ -3544,6 +3590,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * Filter, which Subscription to fetch.
      */
     where: SubscriptionWhereUniqueInput
@@ -3561,6 +3611,10 @@ export namespace Prisma {
      * Omit specific fields from the Subscription
      */
     omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
     /**
      * Filter, which Subscription to fetch.
      */
@@ -3610,6 +3664,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * Filter, which Subscription to fetch.
      */
     where?: SubscriptionWhereInput
@@ -3658,6 +3716,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * Filter, which Subscriptions to fetch.
      */
     where?: SubscriptionWhereInput
@@ -3700,6 +3762,10 @@ export namespace Prisma {
      * Omit specific fields from the Subscription
      */
     omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
     /**
      * The data needed to create a Subscription.
      */
@@ -3748,6 +3814,10 @@ export namespace Prisma {
      * Omit specific fields from the Subscription
      */
     omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
     /**
      * The data needed to update a Subscription.
      */
@@ -3815,6 +3885,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * The filter to search for the Subscription to update in case it exists.
      */
     where: SubscriptionWhereUniqueInput
@@ -3841,6 +3915,10 @@ export namespace Prisma {
      */
     omit?: SubscriptionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
      * Filter which Subscription to delete.
      */
     where: SubscriptionWhereUniqueInput
@@ -3861,6 +3939,30 @@ export namespace Prisma {
   }
 
   /**
+   * Subscription.Tenant
+   */
+  export type Subscription$TenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    cursor?: TenantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
    * Subscription without action
    */
   export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3872,6 +3974,10 @@ export namespace Prisma {
      * Omit specific fields from the Subscription
      */
     omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
   }
 
 
@@ -3892,6 +3998,7 @@ export namespace Prisma {
     lat: number | null
     long: number | null
     userId: number | null
+    subscriptionId: number | null
   }
 
   export type TenantSumAggregateOutputType = {
@@ -3899,6 +4006,7 @@ export namespace Prisma {
     lat: number | null
     long: number | null
     userId: number | null
+    subscriptionId: number | null
   }
 
   export type TenantMinAggregateOutputType = {
@@ -3913,6 +4021,7 @@ export namespace Prisma {
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    subscriptionId: number | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -3927,6 +4036,7 @@ export namespace Prisma {
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    subscriptionId: number | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -3941,6 +4051,7 @@ export namespace Prisma {
     userId: number
     createdAt: number
     updatedAt: number
+    subscriptionId: number
     _all: number
   }
 
@@ -3950,6 +4061,7 @@ export namespace Prisma {
     lat?: true
     long?: true
     userId?: true
+    subscriptionId?: true
   }
 
   export type TenantSumAggregateInputType = {
@@ -3957,6 +4069,7 @@ export namespace Prisma {
     lat?: true
     long?: true
     userId?: true
+    subscriptionId?: true
   }
 
   export type TenantMinAggregateInputType = {
@@ -3971,6 +4084,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    subscriptionId?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -3985,6 +4099,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    subscriptionId?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -3999,6 +4114,7 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    subscriptionId?: true
     _all?: true
   }
 
@@ -4100,6 +4216,7 @@ export namespace Prisma {
     userId: number | null
     createdAt: Date
     updatedAt: Date
+    subscriptionId: number | null
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
     _sum: TenantSumAggregateOutputType | null
@@ -4133,8 +4250,10 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    subscriptionId?: boolean
     address?: boolean | Tenant$addressArgs<ExtArgs>
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4149,7 +4268,9 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    subscriptionId?: boolean
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4164,7 +4285,9 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    subscriptionId?: boolean
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -4179,18 +4302,22 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    subscriptionId?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "email" | "website" | "lat" | "long" | "logo" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "email" | "website" | "lat" | "long" | "logo" | "userId" | "createdAt" | "updatedAt" | "subscriptionId", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     address?: boolean | Tenant$addressArgs<ExtArgs>
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }
   export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Tenant$userArgs<ExtArgs>
+    subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
   }
 
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4198,6 +4325,7 @@ export namespace Prisma {
     objects: {
       address: Prisma.$AddressPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs> | null
+      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4211,6 +4339,7 @@ export namespace Prisma {
       userId: number | null
       createdAt: Date
       updatedAt: Date
+      subscriptionId: number | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -4607,6 +4736,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     address<T extends Tenant$addressArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends Tenant$userArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    subscription<T extends Tenant$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4647,6 +4777,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"Tenant", 'Int'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
+    readonly subscriptionId: FieldRef<"Tenant", 'Int'>
   }
     
 
@@ -5078,6 +5209,25 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Tenant.subscription
+   */
+  export type Tenant$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
   }
 
   /**
@@ -9740,7 +9890,8 @@ export namespace Prisma {
     logo: 'logo',
     userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    subscriptionId: 'subscriptionId'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -10033,6 +10184,7 @@ export namespace Prisma {
     costDuration?: StringFilter<"Subscription"> | string
     createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    Tenant?: TenantListRelationFilter
   }
 
   export type SubscriptionOrderByWithRelationInput = {
@@ -10046,6 +10198,7 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Tenant?: TenantOrderByRelationAggregateInput
   }
 
   export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
@@ -10062,6 +10215,7 @@ export namespace Prisma {
     costDuration?: StringFilter<"Subscription"> | string
     createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    Tenant?: TenantListRelationFilter
   }, "id">
 
   export type SubscriptionOrderByWithAggregationInput = {
@@ -10113,8 +10267,10 @@ export namespace Prisma {
     userId?: IntNullableFilter<"Tenant"> | number | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    subscriptionId?: IntNullableFilter<"Tenant"> | number | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -10129,8 +10285,10 @@ export namespace Prisma {
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    subscriptionId?: SortOrderInput | SortOrder
     address?: AddressOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    subscription?: SubscriptionOrderByWithRelationInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -10148,8 +10306,10 @@ export namespace Prisma {
     logo?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    subscriptionId?: IntNullableFilter<"Tenant"> | number | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }, "id" | "userId">
 
   export type TenantOrderByWithAggregationInput = {
@@ -10164,6 +10324,7 @@ export namespace Prisma {
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    subscriptionId?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -10186,6 +10347,7 @@ export namespace Prisma {
     userId?: IntNullableWithAggregatesFilter<"Tenant"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
+    subscriptionId?: IntNullableWithAggregatesFilter<"Tenant"> | number | null
   }
 
   export type PostWhereInput = {
@@ -10591,6 +10753,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Tenant?: TenantCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionUncheckedCreateInput = {
@@ -10604,6 +10767,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Tenant?: TenantUncheckedCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionUpdateInput = {
@@ -10616,6 +10780,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Tenant?: TenantUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionUncheckedUpdateInput = {
@@ -10629,6 +10794,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Tenant?: TenantUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionCreateManyInput = {
@@ -10681,6 +10847,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     address?: AddressCreateNestedOneWithoutTenantInput
     user?: UserCreateNestedOneWithoutTenantInput
+    subscription?: SubscriptionCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -10695,6 +10862,7 @@ export namespace Prisma {
     userId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    subscriptionId?: number | null
     address?: AddressUncheckedCreateNestedOneWithoutTenantInput
   }
 
@@ -10710,6 +10878,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneWithoutTenantNestedInput
     user?: UserUpdateOneWithoutTenantNestedInput
+    subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -10724,6 +10893,7 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
     address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
   }
 
@@ -10739,6 +10909,7 @@ export namespace Prisma {
     userId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    subscriptionId?: number | null
   }
 
   export type TenantUpdateManyMutationInput = {
@@ -10765,6 +10936,7 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PostCreateInput = {
@@ -11306,6 +11478,16 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type TenantListRelationFilter = {
+    every?: TenantWhereInput
+    some?: TenantWhereInput
+    none?: TenantWhereInput
+  }
+
+  export type TenantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type SubscriptionCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11366,6 +11548,11 @@ export namespace Prisma {
     isNot?: AddressWhereInput | null
   }
 
+  export type SubscriptionNullableScalarRelationFilter = {
+    is?: SubscriptionWhereInput | null
+    isNot?: SubscriptionWhereInput | null
+  }
+
   export type TenantCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11378,6 +11565,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    subscriptionId?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
@@ -11385,6 +11573,7 @@ export namespace Prisma {
     lat?: SortOrder
     long?: SortOrder
     userId?: SortOrder
+    subscriptionId?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
@@ -11399,6 +11588,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    subscriptionId?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -11413,6 +11603,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    subscriptionId?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
@@ -11420,6 +11611,7 @@ export namespace Prisma {
     lat?: SortOrder
     long?: SortOrder
     userId?: SortOrder
+    subscriptionId?: SortOrder
   }
 
   export type UserScalarRelationFilter = {
@@ -11700,6 +11892,20 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type TenantCreateNestedManyWithoutSubscriptionInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput> | TenantCreateWithoutSubscriptionInput[] | TenantUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionInput | TenantCreateOrConnectWithoutSubscriptionInput[]
+    createMany?: TenantCreateManySubscriptionInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type TenantUncheckedCreateNestedManyWithoutSubscriptionInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput> | TenantCreateWithoutSubscriptionInput[] | TenantUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionInput | TenantCreateOrConnectWithoutSubscriptionInput[]
+    createMany?: TenantCreateManySubscriptionInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
   export type SubscriptionUpdatefeaturesInput = {
     set?: string[]
     push?: string | string[]
@@ -11707,6 +11913,34 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type TenantUpdateManyWithoutSubscriptionNestedInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput> | TenantCreateWithoutSubscriptionInput[] | TenantUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionInput | TenantCreateOrConnectWithoutSubscriptionInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutSubscriptionInput | TenantUpsertWithWhereUniqueWithoutSubscriptionInput[]
+    createMany?: TenantCreateManySubscriptionInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutSubscriptionInput | TenantUpdateWithWhereUniqueWithoutSubscriptionInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutSubscriptionInput | TenantUpdateManyWithWhereWithoutSubscriptionInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type TenantUncheckedUpdateManyWithoutSubscriptionNestedInput = {
+    create?: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput> | TenantCreateWithoutSubscriptionInput[] | TenantUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutSubscriptionInput | TenantCreateOrConnectWithoutSubscriptionInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutSubscriptionInput | TenantUpsertWithWhereUniqueWithoutSubscriptionInput[]
+    createMany?: TenantCreateManySubscriptionInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutSubscriptionInput | TenantUpdateWithWhereUniqueWithoutSubscriptionInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutSubscriptionInput | TenantUpdateManyWithWhereWithoutSubscriptionInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
   }
 
   export type AddressCreateNestedOneWithoutTenantInput = {
@@ -11719,6 +11953,12 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
     connectOrCreate?: UserCreateOrConnectWithoutTenantInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type SubscriptionCreateNestedOneWithoutTenantInput = {
+    create?: XOR<SubscriptionCreateWithoutTenantInput, SubscriptionUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutTenantInput
+    connect?: SubscriptionWhereUniqueInput
   }
 
   export type AddressUncheckedCreateNestedOneWithoutTenantInput = {
@@ -11745,6 +11985,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTenantInput, UserUpdateWithoutTenantInput>, UserUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SubscriptionUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutTenantInput, SubscriptionUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutTenantInput
+    upsert?: SubscriptionUpsertWithoutTenantInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutTenantInput, SubscriptionUpdateWithoutTenantInput>, SubscriptionUncheckedUpdateWithoutTenantInput>
   }
 
   export type AddressUncheckedUpdateOneWithoutTenantNestedInput = {
@@ -12247,6 +12497,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutTenantInput
+    subscription?: SubscriptionCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAddressInput = {
@@ -12261,6 +12512,7 @@ export namespace Prisma {
     userId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    subscriptionId?: number | null
   }
 
   export type TenantCreateOrConnectWithoutAddressInput = {
@@ -12328,6 +12580,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutTenantNestedInput
+    subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAddressInput = {
@@ -12342,6 +12595,80 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type TenantCreateWithoutSubscriptionInput = {
+    name: string
+    phone: string
+    email: string
+    website?: string | null
+    lat: number
+    long: number
+    logo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address?: AddressCreateNestedOneWithoutTenantInput
+    user?: UserCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutSubscriptionInput = {
+    id?: number
+    name: string
+    phone: string
+    email: string
+    website?: string | null
+    lat: number
+    long: number
+    logo?: string | null
+    userId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address?: AddressUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSubscriptionInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type TenantCreateManySubscriptionInputEnvelope = {
+    data: TenantCreateManySubscriptionInput | TenantCreateManySubscriptionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithWhereUniqueWithoutSubscriptionInput = {
+    where: TenantWhereUniqueInput
+    update: XOR<TenantUpdateWithoutSubscriptionInput, TenantUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<TenantCreateWithoutSubscriptionInput, TenantUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type TenantUpdateWithWhereUniqueWithoutSubscriptionInput = {
+    where: TenantWhereUniqueInput
+    data: XOR<TenantUpdateWithoutSubscriptionInput, TenantUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type TenantUpdateManyWithWhereWithoutSubscriptionInput = {
+    where: TenantScalarWhereInput
+    data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutSubscriptionInput>
+  }
+
+  export type TenantScalarWhereInput = {
+    AND?: TenantScalarWhereInput | TenantScalarWhereInput[]
+    OR?: TenantScalarWhereInput[]
+    NOT?: TenantScalarWhereInput | TenantScalarWhereInput[]
+    id?: IntFilter<"Tenant"> | number
+    name?: StringFilter<"Tenant"> | string
+    phone?: StringFilter<"Tenant"> | string
+    email?: StringFilter<"Tenant"> | string
+    website?: StringNullableFilter<"Tenant"> | string | null
+    lat?: FloatFilter<"Tenant"> | number
+    long?: FloatFilter<"Tenant"> | number
+    logo?: StringNullableFilter<"Tenant"> | string | null
+    userId?: IntNullableFilter<"Tenant"> | number | null
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    subscriptionId?: IntNullableFilter<"Tenant"> | number | null
   }
 
   export type AddressCreateWithoutTenantInput = {
@@ -12414,6 +12741,36 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutTenantInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SubscriptionCreateWithoutTenantInput = {
+    name: string
+    features?: SubscriptionCreatefeaturesInput | string[]
+    isPopular?: boolean
+    isActive?: boolean
+    cost: number
+    priceSymbol: string
+    costDuration: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUncheckedCreateWithoutTenantInput = {
+    id?: number
+    name: string
+    features?: SubscriptionCreatefeaturesInput | string[]
+    isPopular?: boolean
+    isActive?: boolean
+    cost: number
+    priceSymbol: string
+    costDuration: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionCreateOrConnectWithoutTenantInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutTenantInput, SubscriptionUncheckedCreateWithoutTenantInput>
   }
 
   export type AddressUpsertWithoutTenantInput = {
@@ -12498,6 +12855,42 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
     addresses?: AddressUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SubscriptionUpsertWithoutTenantInput = {
+    update: XOR<SubscriptionUpdateWithoutTenantInput, SubscriptionUncheckedUpdateWithoutTenantInput>
+    create: XOR<SubscriptionCreateWithoutTenantInput, SubscriptionUncheckedCreateWithoutTenantInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutTenantInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutTenantInput, SubscriptionUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SubscriptionUpdateWithoutTenantInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
+    isPopular?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    cost?: FloatFieldUpdateOperationsInput | number
+    priceSymbol?: StringFieldUpdateOperationsInput | string
+    costDuration?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
+    isPopular?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    cost?: FloatFieldUpdateOperationsInput | number
+    priceSymbol?: StringFieldUpdateOperationsInput | string
+    costDuration?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -12766,6 +13159,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address?: AddressCreateNestedOneWithoutTenantInput
+    subscription?: SubscriptionCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUserInput = {
@@ -12779,6 +13173,7 @@ export namespace Prisma {
     logo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    subscriptionId?: number | null
     address?: AddressUncheckedCreateNestedOneWithoutTenantInput
   }
 
@@ -12928,6 +13323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneWithoutTenantNestedInput
+    subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUserInput = {
@@ -12941,6 +13337,7 @@ export namespace Prisma {
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
     address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
   }
 
@@ -13012,6 +13409,63 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     addresses?: AddressUncheckedUpdateManyWithoutUserNestedInput
     tenant?: TenantUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type TenantCreateManySubscriptionInput = {
+    id?: number
+    name: string
+    phone: string
+    email: string
+    website?: string | null
+    lat: number
+    long: number
+    logo?: string | null
+    userId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantUpdateWithoutSubscriptionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: FloatFieldUpdateOperationsInput | number
+    long?: FloatFieldUpdateOperationsInput | number
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneWithoutTenantNestedInput
+    user?: UserUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSubscriptionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: FloatFieldUpdateOperationsInput | number
+    long?: FloatFieldUpdateOperationsInput | number
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateManyWithoutSubscriptionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: FloatFieldUpdateOperationsInput | number
+    long?: FloatFieldUpdateOperationsInput | number
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateManyAuthorInput = {

@@ -2,7 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { SubscriptionEntity } from '@city-workspace/shared-models';
+import {
+  SubscriptionEntity,
+  UpdateSubscriptionDto,
+} from '@city-workspace/shared-models';
 import { SubscriptionService } from './subscription.service';
 import { AlertService } from '../../lib/services/alert.service';
 import { SpinnerComponent } from '../components/spinner.component';
@@ -52,20 +55,24 @@ export class SubscriptionComponent implements OnInit {
   async onSelecteSubscription(subscription: SubscriptionEntity) {
     this.buttonloading = true;
     const tenantId = this.cookieService.get(AppConstants.tenantId);
+    const updateTenantDto: UpdateSubscriptionDto = new UpdateSubscriptionDto({
+      subscriptionId: subscription.id,
+    });
     this.service
-      .selectSubscription({ subscriptionId: subscription.id }, Number(tenantId))
+      .selectSubscription(updateTenantDto, Number(tenantId))
       .subscribe({
         next: async (tenant) => {
           this.buttonloading = false;
           if (tenant) {
             await this.router.navigate([WebUrl.home]);
             this.alertService.showSuccess(
-              'Congrats! Your Subscription selected successfully',
+              'Congrats! Your Subscription is active',
             );
           }
         },
         error: (error) => {
           this.buttonloading = false;
+          console.log('error', JSON.stringify(error));
           const errorMessage = error.error.message?.message || error;
           this.alertService.showError(JSON.stringify(errorMessage));
         },

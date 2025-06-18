@@ -89,6 +89,7 @@ export function fakeTenantComplete() {
     userId: undefined,
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
+    subscriptionId: undefined,
   };
 }
 export function fakePost() {

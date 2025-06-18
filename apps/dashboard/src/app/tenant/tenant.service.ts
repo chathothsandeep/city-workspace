@@ -8,8 +8,6 @@ import { AuthService } from '../../lib/services/auth.service';
 @Injectable({ providedIn: 'root' })
 export class TenantService {
   private http = inject(HttpClient);
-  private auth = inject(AuthService);
-
   createTenant(
     data: CreateTenantDto,
     file?: File,

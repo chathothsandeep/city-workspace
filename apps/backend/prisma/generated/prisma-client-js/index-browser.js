@@ -163,7 +163,8 @@ exports.Prisma.TenantScalarFieldEnum = {
   logo: 'logo',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  subscriptionId: 'subscriptionId'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
