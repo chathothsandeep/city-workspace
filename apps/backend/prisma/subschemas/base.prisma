@@ -11,7 +11,7 @@
 //
 // generator custom_generator {
 //     provider = "prisma-generator-fake-data"
-//     output   = "./types/fake-data.ts"
+//     output   = "./fake-data/fake-data.ts"
 // }
 // generator typescriptInterfaces {
 //   provider = "prisma-generator-typescript-interfaces"
