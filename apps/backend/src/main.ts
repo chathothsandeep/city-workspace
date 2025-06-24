@@ -4,7 +4,6 @@ import { AppModule } from './app/app.module';
 import { ConfigService } from '@nestjs/config';
 import { AllExceptionsFilter } from './all-exception.filter';
 import { corsOptions } from './lib/corsOptions';
-import { AppValidationPipe } from './pipes/validation.pipe';
 import * as path from 'path';
 import * as express from 'express';
 import { ValidationPipe } from '@nestjs/common';

@@ -1,5 +1,5 @@
 export const validationPipeOption = {
   whitelist: true,
-    forbidNonWhitelisted: true,
-  transform: true
+  forbidNonWhitelisted: true,
+  transform: true,
 };

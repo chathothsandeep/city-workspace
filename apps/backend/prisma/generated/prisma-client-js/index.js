@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -216,7 +216,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/shibink/Desktop/city-workspace/apps/backend/prisma/generated/prisma-client-js",
+      "value": "/Users/shibi/Desktop/city-workspace/apps/backend/prisma/generated/prisma-client-js",
       "fromEnvVar": null
     },
     "config": {
@@ -230,7 +230,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/shibink/Desktop/city-workspace/apps/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/shibi/Desktop/city-workspace/apps/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -238,13 +238,12 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
-  "clientVersion": "6.9.0",
-  "engineVersion": "81e4af48011447c3cc503a190e86995b66d2a28e",
+  "clientVersion": "6.10.1",
+  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -253,9 +252,9 @@ const config = {
       }
     }
   },
-  "inlineSchema": "//🧩Don't Edit this file.✨Generated in Wed Jun 18 2025 22:04:46 GMT+0530 (India Standard Time)✨\n\nmodel Address {\n  id         Int      @id @default(autoincrement())\n  fullName   String\n  mobile     String\n  addressOne String\n  adrressTwo String?\n  latitude   Float\n  longitude  Float\n  zip        Int?\n  landmark   String?\n  country    String\n  state      String\n  city       String?\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User?    @relation(fields: [userId], references: [id])\n  userId     Int?\n  tenantId   Int?     @unique\n  tenant     Tenant?  @relation(fields: [tenantId], references: [id])\n}\n\ngenerator custom_generator {\n  provider = \"prisma-generator-fake-data\"\n  output   = \"./fake-data/fake-data.ts\"\n}\n\ngenerator typescriptInterfaces {\n  provider = \"prisma-generator-typescript-interfaces\"\n}\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/prisma-client-js\"\n  binaryTargets = [\"native\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Subscription {\n  id           Int      @id @default(autoincrement())\n  name         String\n  features     String[]\n  isPopular    Boolean  @default(false)\n  isActive     Boolean  @default(true)\n  cost         Float\n  priceSymbol  String\n  costDuration String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n  Tenant       Tenant[]\n}\n\nmodel Tenant {\n  id             Int           @id @default(autoincrement())\n  name           String\n  phone          String\n  email          String\n  website        String?\n  lat            Float\n  long           Float\n  logo           String?\n  address        Address?\n  userId         Int?          @unique\n  user           User?         @relation(fields: [userId], references: [id])\n  createdAt      DateTime      @default(now())\n  updatedAt      DateTime      @updatedAt\n  subscriptionId Int?\n  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String\n  content   String?\n  published Boolean  @default(false)\n  author    User     @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Profile {\n  id        Int      @id @default(autoincrement())\n  bio       String?\n  user      User     @relation(fields: [userId], references: [id])\n  userId    Int      @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel User {\n  id        Int       @id @default(autoincrement())\n  email     String    @unique\n  name      String?\n  posts     Post[]\n  profile   Profile?\n  role      UserRole  @default(USER)\n  password  String?\n  tokens    Token[]\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  addresses Address[]\n  tenant    Tenant?\n}\n\nmodel Token {\n  id         Int      @id @default(autoincrement())\n  token      String\n  expirestAt DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User?    @relation(fields: [userId], references: [id])\n  userId     Int?\n}\n\nenum UserRole {\n  USER\n  ADMIN\n}\n",
-  "inlineSchemaHash": "853fc1853b728cff71a6c4b84ec4ebc3fe5754f641974ef7cf68d95cb7831e05",
-  "copyEngine": true
+  "inlineSchema": "//🧩Don't Edit this file.✨Generated in Tue Jun 24 2025 13:27:26 GMT+0530 (India Standard Time)✨\n\nmodel Address {\n  id         Int      @id @default(autoincrement())\n  fullName   String\n  mobile     String\n  addressOne String\n  adrressTwo String?\n  latitude   Float\n  longitude  Float\n  zip        Int?\n  landmark   String?\n  country    String\n  state      String\n  city       String?\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User?    @relation(fields: [userId], references: [id])\n  userId     Int?\n  tenantId   Int?     @unique\n  tenant     Tenant?  @relation(fields: [tenantId], references: [id])\n}\n\ngenerator custom_generator {\n  provider = \"prisma-generator-fake-data\"\n  output   = \"./fake-data/fake-data.ts\"\n}\n\ngenerator typescriptInterfaces {\n  provider = \"prisma-generator-typescript-interfaces\"\n}\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/prisma-client-js\"\n  binaryTargets = [\"native\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Subscription {\n  id           Int      @id @default(autoincrement())\n  name         String\n  features     String[]\n  isPopular    Boolean  @default(false)\n  isActive     Boolean  @default(true)\n  cost         Float\n  priceSymbol  String\n  costDuration String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n  Tenant       Tenant[]\n}\n\nmodel Tenant {\n  id             Int           @id @default(autoincrement())\n  name           String\n  phone          String\n  email          String\n  website        String?\n  lat            Float\n  long           Float\n  logo           String?\n  address        Address?\n  userId         Int?          @unique\n  user           User?         @relation(fields: [userId], references: [id])\n  createdAt      DateTime      @default(now())\n  updatedAt      DateTime      @updatedAt\n  subscriptionId Int?\n  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String\n  content   String?\n  published Boolean  @default(false)\n  author    User     @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Profile {\n  id        Int      @id @default(autoincrement())\n  bio       String?\n  user      User     @relation(fields: [userId], references: [id])\n  userId    Int      @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel User {\n  id        Int       @id @default(autoincrement())\n  email     String    @unique\n  name      String?\n  posts     Post[]\n  profile   Profile?\n  role      UserRole  @default(USER)\n  password  String?\n  tokens    Token[]\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  addresses Address[]\n  tenant    Tenant?\n}\n\nmodel Token {\n  id         Int      @id @default(autoincrement())\n  token      String\n  expirestAt DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User?    @relation(fields: [userId], references: [id])\n  userId     Int?\n}\n\nenum UserRole {\n  USER\n  ADMIN\n}\n",
+  "inlineSchemaHash": "2314bb4550977982792dcce6546861dcacb9991ef2bf5c195bfea644a72ba818",
+  "copyEngine": false
 }
 
 const fs = require('fs')
@@ -292,9 +291,3 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "prisma/generated/prisma-client-js/libquery_engine-darwin-arm64.dylib.node")
-// file annotations for bundling tools to include these files
-path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "prisma/generated/prisma-client-js/schema.prisma")

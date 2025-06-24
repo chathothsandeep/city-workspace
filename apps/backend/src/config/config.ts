@@ -1,6 +1,6 @@
 export default () => ({
   database: {
-    url: process.env.DB_URL,
+    url: process.env.DATABASE_URL,
   },
   security: {
     corsOrigin: process.env.CORS_ORIGIN,
