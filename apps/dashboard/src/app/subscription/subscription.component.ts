@@ -28,6 +28,7 @@ export class SubscriptionComponent implements OnInit {
   private alertService = inject(AlertService);
   private cookieService = inject(CookieService);
   private router = inject(Router);
+  
 
   ngOnInit(): void {
     this.onLoadSubscriptions();
