@@ -2827,11 +2827,13 @@ export namespace Prisma {
   export type SubscriptionAvgAggregateOutputType = {
     id: number | null
     cost: number | null
+    sortOrder: number | null
   }
 
   export type SubscriptionSumAggregateOutputType = {
     id: number | null
     cost: number | null
+    sortOrder: number | null
   }
 
   export type SubscriptionMinAggregateOutputType = {
@@ -2844,6 +2846,7 @@ export namespace Prisma {
     costDuration: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    sortOrder: number | null
   }
 
   export type SubscriptionMaxAggregateOutputType = {
@@ -2856,6 +2859,7 @@ export namespace Prisma {
     costDuration: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    sortOrder: number | null
   }
 
   export type SubscriptionCountAggregateOutputType = {
@@ -2869,6 +2873,7 @@ export namespace Prisma {
     costDuration: number
     createdAt: number
     updatedAt: number
+    sortOrder: number
     _all: number
   }
 
@@ -2876,11 +2881,13 @@ export namespace Prisma {
   export type SubscriptionAvgAggregateInputType = {
     id?: true
     cost?: true
+    sortOrder?: true
   }
 
   export type SubscriptionSumAggregateInputType = {
     id?: true
     cost?: true
+    sortOrder?: true
   }
 
   export type SubscriptionMinAggregateInputType = {
@@ -2893,6 +2900,7 @@ export namespace Prisma {
     costDuration?: true
     createdAt?: true
     updatedAt?: true
+    sortOrder?: true
   }
 
   export type SubscriptionMaxAggregateInputType = {
@@ -2905,6 +2913,7 @@ export namespace Prisma {
     costDuration?: true
     createdAt?: true
     updatedAt?: true
+    sortOrder?: true
   }
 
   export type SubscriptionCountAggregateInputType = {
@@ -2918,6 +2927,7 @@ export namespace Prisma {
     costDuration?: true
     createdAt?: true
     updatedAt?: true
+    sortOrder?: true
     _all?: true
   }
 
@@ -3018,6 +3028,7 @@ export namespace Prisma {
     costDuration: string
     createdAt: Date
     updatedAt: Date
+    sortOrder: number
     _count: SubscriptionCountAggregateOutputType | null
     _avg: SubscriptionAvgAggregateOutputType | null
     _sum: SubscriptionSumAggregateOutputType | null
@@ -3050,6 +3061,7 @@ export namespace Prisma {
     costDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sortOrder?: boolean
     Tenant?: boolean | Subscription$TenantArgs<ExtArgs>
     _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
@@ -3065,6 +3077,7 @@ export namespace Prisma {
     costDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sortOrder?: boolean
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3078,6 +3091,7 @@ export namespace Prisma {
     costDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sortOrder?: boolean
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectScalar = {
@@ -3091,9 +3105,10 @@ export namespace Prisma {
     costDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sortOrder?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "features" | "isPopular" | "isActive" | "cost" | "priceSymbol" | "costDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "features" | "isPopular" | "isActive" | "cost" | "priceSymbol" | "costDuration" | "createdAt" | "updatedAt" | "sortOrder", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Tenant?: boolean | Subscription$TenantArgs<ExtArgs>
     _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
@@ -3117,6 +3132,7 @@ export namespace Prisma {
       costDuration: string
       createdAt: Date
       updatedAt: Date
+      sortOrder: number
     }, ExtArgs["result"]["subscription"]>
     composites: {}
   }
@@ -3551,6 +3567,7 @@ export namespace Prisma {
     readonly costDuration: FieldRef<"Subscription", 'String'>
     readonly createdAt: FieldRef<"Subscription", 'DateTime'>
     readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
+    readonly sortOrder: FieldRef<"Subscription", 'Int'>
   }
     
 
@@ -9873,7 +9890,8 @@ export namespace Prisma {
     priceSymbol: 'priceSymbol',
     costDuration: 'costDuration',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    sortOrder: 'sortOrder'
   };
 
   export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
@@ -10184,6 +10202,7 @@ export namespace Prisma {
     costDuration?: StringFilter<"Subscription"> | string
     createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    sortOrder?: IntFilter<"Subscription"> | number
     Tenant?: TenantListRelationFilter
   }
 
@@ -10198,6 +10217,7 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sortOrder?: SortOrder
     Tenant?: TenantOrderByRelationAggregateInput
   }
 
@@ -10215,6 +10235,7 @@ export namespace Prisma {
     costDuration?: StringFilter<"Subscription"> | string
     createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    sortOrder?: IntFilter<"Subscription"> | number
     Tenant?: TenantListRelationFilter
   }, "id">
 
@@ -10229,6 +10250,7 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sortOrder?: SortOrder
     _count?: SubscriptionCountOrderByAggregateInput
     _avg?: SubscriptionAvgOrderByAggregateInput
     _max?: SubscriptionMaxOrderByAggregateInput
@@ -10250,6 +10272,7 @@ export namespace Prisma {
     costDuration?: StringWithAggregatesFilter<"Subscription"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    sortOrder?: IntWithAggregatesFilter<"Subscription"> | number
   }
 
   export type TenantWhereInput = {
@@ -10753,6 +10776,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sortOrder?: number
     Tenant?: TenantCreateNestedManyWithoutSubscriptionInput
   }
 
@@ -10767,6 +10791,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sortOrder?: number
     Tenant?: TenantUncheckedCreateNestedManyWithoutSubscriptionInput
   }
 
@@ -10780,6 +10805,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
     Tenant?: TenantUpdateManyWithoutSubscriptionNestedInput
   }
 
@@ -10794,6 +10820,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
     Tenant?: TenantUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
 
@@ -10808,6 +10835,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sortOrder?: number
   }
 
   export type SubscriptionUpdateManyMutationInput = {
@@ -10820,6 +10848,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
   }
 
   export type SubscriptionUncheckedUpdateManyInput = {
@@ -10833,6 +10862,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
   }
 
   export type TenantCreateInput = {
@@ -11499,11 +11529,13 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sortOrder?: SortOrder
   }
 
   export type SubscriptionAvgOrderByAggregateInput = {
     id?: SortOrder
     cost?: SortOrder
+    sortOrder?: SortOrder
   }
 
   export type SubscriptionMaxOrderByAggregateInput = {
@@ -11516,6 +11548,7 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sortOrder?: SortOrder
   }
 
   export type SubscriptionMinOrderByAggregateInput = {
@@ -11528,11 +11561,13 @@ export namespace Prisma {
     costDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sortOrder?: SortOrder
   }
 
   export type SubscriptionSumOrderByAggregateInput = {
     id?: SortOrder
     cost?: SortOrder
+    sortOrder?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12753,6 +12788,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sortOrder?: number
   }
 
   export type SubscriptionUncheckedCreateWithoutTenantInput = {
@@ -12766,6 +12802,7 @@ export namespace Prisma {
     costDuration: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    sortOrder?: number
   }
 
   export type SubscriptionCreateOrConnectWithoutTenantInput = {
@@ -12878,6 +12915,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
   }
 
   export type SubscriptionUncheckedUpdateWithoutTenantInput = {
@@ -12891,6 +12929,7 @@ export namespace Prisma {
     costDuration?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sortOrder?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserCreateWithoutPostsInput = {

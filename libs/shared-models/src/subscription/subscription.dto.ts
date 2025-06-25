@@ -10,8 +10,7 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
-
+import { PartialType } from '@city-workspace/nest-mapped-types';
 export class CreateSubscriptionDto {
   @IsString()
   @IsNotEmpty()
@@ -48,6 +47,10 @@ export class CreateSubscriptionDto {
   @IsNumber()
   @IsOptional()
   subscriptionId!: number;
+
+  @IsOptional()
+  @IsNumber()
+  sortOrder?: number;
 
   constructor(data?: Partial<CreateSubscriptionDto>) {
     Object.assign(this, data);

@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {
   SubscriptionEntity,
-  UpdateSubscriptionDto,
+  UpdateTenantDto,
 } from '@city-workspace/shared-models';
 import { SubscriptionService } from './subscription.service';
 import { AlertService } from '../../lib/services/alert.service';
@@ -13,10 +13,17 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppConstants } from '../../lib/constants/app.constants';
 import { Router } from '@angular/router';
 import { WebUrl } from '../../lib/constants/url.constants';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
   selector: 'app-subscription',
-  imports: [CommonModule, ButtonModule, CardModule, SpinnerComponent],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    CardModule,
+    SpinnerComponent,
+    DrawerModule,
+  ],
   templateUrl: './subscription.component.html',
   standalone: true,
 })
@@ -28,7 +35,8 @@ export class SubscriptionComponent implements OnInit {
   private alertService = inject(AlertService);
   private cookieService = inject(CookieService);
   private router = inject(Router);
-  
+  drawerVisible = false;
+  selectedSubScription = signal<SubscriptionEntity | null>(null);
 
   ngOnInit(): void {
     this.onLoadSubscriptions();
@@ -53,18 +61,17 @@ export class SubscriptionComponent implements OnInit {
     });
   }
 
-  async onSelecteSubscription(subscription: SubscriptionEntity) {
+  async onSelecteSubscription() {
+    const subscription = this.selectedSubScription();
     this.buttonloading = true;
     const tenantId = this.cookieService.get(AppConstants.tenantId);
-    const updateTenantDto: UpdateSubscriptionDto = new UpdateSubscriptionDto({
-      subscriptionId: subscription.id,
-    });
     this.service
-      .selectSubscription(updateTenantDto, Number(tenantId))
+      .selectSubscription(subscription!.id, Number(tenantId))
       .subscribe({
         next: async (tenant) => {
           this.buttonloading = false;
           if (tenant) {
+            console.log('tenant', JSON.stringify(tenant));
             await this.router.navigate([WebUrl.home]);
             this.alertService.showSuccess(
               'Congrats! Your Subscription is active',
@@ -78,5 +85,10 @@ export class SubscriptionComponent implements OnInit {
           this.alertService.showError(JSON.stringify(errorMessage));
         },
       });
+  }
+
+  onOpenDrawer(selectedSubscription: SubscriptionEntity) {
+    this.selectedSubScription.set(selectedSubscription);
+    this.drawerVisible = true;
   }
 }

@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional, IsString, IsNumber } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@city-workspace/nest-mapped-types';
 
 export class CreateTenantDto {
   @IsString()

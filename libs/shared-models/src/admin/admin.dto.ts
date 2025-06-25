@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@city-workspace/nest-mapped-types';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class CreateAdminDto {

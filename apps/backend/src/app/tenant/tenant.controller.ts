@@ -46,10 +46,7 @@ export class TenantController {
   }
 
   @Patch(':id')
-  updateFew(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() data: UpdateTenantDto,
-  ) {
+  updateFew(@Param('id', ParseIntPipe) id: number, @Body() data: any) {
     return this.tenantService.updateFew(id, data);
   }
 

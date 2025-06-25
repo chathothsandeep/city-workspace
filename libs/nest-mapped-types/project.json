@@ -1,0 +1,20 @@
+{
+  "name": "nest-mapped-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nest-mapped-types/src",
+  "projectType": "library",
+  "tags": [],
+  "extends": "../../nx.json",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nest-mapped-types",
+        "main": "libs/nest-mapped-types/src/index.ts",
+        "tsConfig": "libs/nest-mapped-types/tsconfig.lib.json",
+        "assets": ["libs/nest-mapped-types/*.md"]
+      }
+    }
+  }
+}

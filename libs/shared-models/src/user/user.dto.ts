@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@city-workspace/nest-mapped-types';
 import { UserRoles } from '@city-workspace/common-utils';
 import {
   IsEmail,
@@ -32,8 +32,4 @@ export class CreateUserDto {
   }
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {
-  constructor(data?: Partial<UpdateUserDto>) {
-    super(data);
-  }
-}
+export class UpdateUserDto extends PartialType(CreateUserDto) {}

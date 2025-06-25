@@ -51,15 +51,15 @@ export class TenantRepo implements CrudService<TenantEntity> {
     });
   }
 
-  async updateFew(
-    id: number,
-    data: UpdateTenantDto,
-  ): Promise<TenantEntity | null> {
+  async updateFew(id: number, data: any): Promise<TenantEntity | null> {
+    LogHelper.getInstance().log(data, 'repo');
     return await db.tenant.update({
       where: {
         id: id,
       },
-      data: data,
+      data: {
+        subscriptionId: data.subscriptionId,
+      },
       select: selectedTenantFields,
     });
   }

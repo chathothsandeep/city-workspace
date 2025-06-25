@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Tue Jun 24 2025 13:27:26 GMT+0530 (India Standard Time)✨
+//🧩Don't Edit this file.✨Generated in Wed Jun 25 2025 11:29:52 GMT+0530 (India Standard Time)✨
 
 model Address {
   id         Int      @id @default(autoincrement())
@@ -53,6 +53,7 @@ model Subscription {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   Tenant       Tenant[]
+  sortOrder    Int      @default(0)
 }
 
 model Tenant {

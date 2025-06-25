@@ -35,6 +35,7 @@ export interface Subscription {
   createdAt: Date;
   updatedAt: Date;
   Tenant?: Tenant[];
+  sortOrder: number;
 }
 
 export interface Tenant {

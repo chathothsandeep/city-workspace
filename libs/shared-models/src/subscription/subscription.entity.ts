@@ -9,6 +9,7 @@ export class SubscriptionEntity {
   costDuration!: string;
   createdAt?: Date;
   updatedAt?: Date;
+  sortOrder?: number;
 
   constructor(data?: Partial<SubscriptionEntity>) {
     Object.assign(this, data);

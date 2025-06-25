@@ -62,6 +62,7 @@ export function fakeSubscriptionComplete() {
     costDuration: faker.lorem.words(5),
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
+    sortOrder: 0,
   };
 }
 export function fakeTenant() {

@@ -34,17 +34,35 @@
             <div class="p-6 text-center">
               <p-button
                 type="button"
-                label="{{`Choose ${item.name}`}}"
+                label="{{ `Choose ${item.name}` }}"
                 variant="outlined"
                 icon="pi pi-check"
                 severity="info"
-                (onClick)="onSelecteSubscription(item)"
-                [loading]="buttonloading"
+                (onClick)="onOpenDrawer(item)"
               />
             </div>
           </ng-template>
         </p-card>
       }
+    </div>
+
+    <div class="card">
+      <p-drawer header="Payment" [(visible)]="drawerVisible" position="right">
+        <p class="mb-8">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+
+        <p-button
+          type="button"
+          label="Checkout"
+          icon="pi pi-check"
+          (onClick)="onSelecteSubscription()"
+          [loading]="buttonloading"
+        />
+      </p-drawer>
     </div>
   </div>
 } @else {

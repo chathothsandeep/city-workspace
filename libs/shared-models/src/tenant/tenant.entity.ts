@@ -15,6 +15,7 @@ export class TenantEntity {
   user?: UserEntity | null;
   createdAt?: Date;
   updatedAt?: Date;
+  subscriptionId?: number | null;
 
   constructor(data?: Partial<TenantEntity>) {
     Object.assign(this, data);

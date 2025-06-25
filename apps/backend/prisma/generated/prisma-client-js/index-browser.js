@@ -149,7 +149,8 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   priceSymbol: 'priceSymbol',
   costDuration: 'costDuration',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  sortOrder: 'sortOrder'
 };
 
 exports.Prisma.TenantScalarFieldEnum = {

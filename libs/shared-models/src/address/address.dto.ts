@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@city-workspace/nest-mapped-types';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateAddressDto {

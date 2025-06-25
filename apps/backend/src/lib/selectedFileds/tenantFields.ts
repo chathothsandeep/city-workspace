@@ -10,4 +10,5 @@ export const selectedTenantFields = {
   address: true,
   createdAt: true,
   updatedAt: true,
+  subscriptionId: true,
 };

@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@city-workspace/common-utils": ["libs/common-utils/src/index.ts"],
+      "@city-workspace/nest-mapped-types": [
+        "libs/nest-mapped-types/src/index.ts"
+      ],
       "@city-workspace/shared-models": ["libs/shared-models/src/index.ts"]
     }
   },

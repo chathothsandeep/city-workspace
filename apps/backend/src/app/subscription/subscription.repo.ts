@@ -13,7 +13,10 @@ export class SubscriptionRepo implements CrudService<SubscriptionEntity> {
     return db.subscription.create({ data });
   }
   findAll(params: { [key: string]: any }): Promise<SubscriptionEntity[]> {
-    return db.subscription.findMany({ where: { ...params } });
+    return db.subscription.findMany({
+      where: { ...params },
+      orderBy: { sortOrder: 'asc' },
+    });
   }
   find(id: number): Promise<SubscriptionEntity> {
     return db.subscription.findUnique({ where: { id } });
