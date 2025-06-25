@@ -9,3 +9,5 @@ export * from './tenant/teanant.dto';
 export * from './tenant/tenant.entity';
 export * from './subscription/subscription.dto';
 export * from './subscription/subscription.entity';
+export * from './product/product.dto';
+export * from './product/product.entity';

@@ -23,6 +23,21 @@ export interface Address {
   tenant?: Tenant | null;
 }
 
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  tags: string[];
+  barcode: string;
+  image: string | null;
+  price: number;
+  priceSymbol: string | null;
+  quantity: number;
+  unit: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Subscription {
   id: number;
   name: string;

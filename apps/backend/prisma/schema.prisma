@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Wed Jun 25 2025 11:29:52 GMT+0530 (India Standard Time)✨
+//🧩Don't Edit this file.✨Generated in Wed Jun 25 2025 16:51:16 GMT+0530 (India Standard Time)✨
 
 model Address {
   id         Int      @id @default(autoincrement())
@@ -39,6 +39,21 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  tags        String[]
+  barcode     String
+  image       String?
+  price       Float
+  priceSymbol String?
+  quantity    Int
+  unit        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Subscription {

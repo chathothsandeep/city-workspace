@@ -46,7 +46,7 @@ export class CreateSubscriptionDto {
 
   @IsNumber()
   @IsOptional()
-  subscriptionId!: number;
+  subscriptionId?: number;
 
   @IsOptional()
   @IsNumber()

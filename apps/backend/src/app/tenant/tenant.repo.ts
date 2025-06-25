@@ -100,3 +100,4 @@ export class TenantRepo implements CrudService<TenantEntity> {
     }
   }
 }
+
