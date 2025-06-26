@@ -10,21 +10,18 @@ RUN npm install --legacy-peer-deps && npm audit fix --force || true
 # Copy all files
 COPY . .
 
-# Build the Next.js app
-RUN npx nx build frontend
+# Build the Angular app
+RUN npx nx build dashboard --configuration=production
 
-# Stage 2: Run
-FROM node:20-alpine
+# Stage 2: Run with Nginx
+FROM nginx:alpine
 
-WORKDIR /app
+# Copy nginx config
+COPY apps/dashboard/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built files from builder
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/dist/apps/dashboard /usr/share/nginx/html
 
-# Expose port (adjust as needed)
-EXPOSE 3001
+EXPOSE 80
 
-# Start the application
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]

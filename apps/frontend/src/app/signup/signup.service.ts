@@ -10,6 +10,4 @@ export class SignupService {
   signup(dto: CreateUserDto): Observable<UserEntity> | null {
     return this.http.post<UserEntity>(ApiUrl.signUp, dto);
   }
-
-  
 }

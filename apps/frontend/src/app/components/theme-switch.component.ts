@@ -1,4 +1,3 @@
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +16,7 @@ import { ButtonModule } from 'primeng/button';
       @if (!isDark) {
         <i class="pi pi-moon"></i>
       } @else if (isDark) {
-       <i class="pi pi-sun"></i>
+        <i class="pi pi-sun"></i>
       }
     </span>
   </p-button> `,
