@@ -1,4 +1,5 @@
 import { AddressEntity } from '../address/address.entity';
+import { TenantEntity } from '../tenant/tenant.entity';
 export class UserEntity {
   public id!: number;
   public email!: string;
@@ -9,6 +10,7 @@ export class UserEntity {
   public createdAt?: Date;
   public updatedAt?: Date;
   public addresses?: AddressEntity[];
+  public tenant?: TenantEntity;
 
   constructor(data?: Partial<UserEntity>) {
     Object.assign(this, data);

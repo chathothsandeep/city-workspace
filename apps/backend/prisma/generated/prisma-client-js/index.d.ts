@@ -60,7 +60,8 @@ export type Token = $Result.DefaultSelection<Prisma.$TokenPayload>
 export namespace $Enums {
   export const UserRole: {
   USER: 'USER',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  TENANT: 'TENANT'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]

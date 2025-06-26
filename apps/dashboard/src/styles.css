@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+@import 'primeicons/primeicons.css';
+
+* {
+  box-sizing: border-box;
+}
+
+.p-button {
+  width: 100%;
+}

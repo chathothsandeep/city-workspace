@@ -36,7 +36,6 @@ model User {
     tenant    Tenant?
 }
 
-
 model Token {
     id         Int      @id @default(autoincrement())
     token      String
@@ -50,4 +49,5 @@ model Token {
 enum UserRole {
     USER
     ADMIN
+    TENANT
 }

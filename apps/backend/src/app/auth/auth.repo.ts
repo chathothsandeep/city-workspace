@@ -6,17 +6,15 @@ import {
 } from '@city-workspace/shared-models';
 import { db } from '../../lib/db';
 
-
 @Injectable()
 export default class AuthRepo {
-  
-
   async login(email: string): Promise<UserEntity | null> {
     return db.user.findUnique({
       where: {
         email,
       },
       include: {
+        tenant: true,
         tokens: {
           take: 1,
           skip: 0,

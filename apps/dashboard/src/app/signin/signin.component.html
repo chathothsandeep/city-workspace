@@ -1,0 +1,88 @@
+<div class="flex items-center justify-content-center w-full min-h-screen">
+  <div class="flex flex-col items-center justify-content-center w-full">
+    <h2 class="text-2xl">Sign In</h2>
+    <p>Sign in to your account</p>
+    <form
+      class="flex flex-col mt-6 gap-5 w-1/4"
+      [formGroup]="signinForm"
+      (ngSubmit)="onSignIn()"
+    >
+      <div class="flex flex-col gap-2">
+        <label for="email">Email</label>
+        <input
+          pInputText
+          id="email"
+          variant="filled"
+          autocomplete="off"
+          formControlName="email"
+          class="w-full"
+          required
+          placeholder="Enter your email"
+          type="email"
+        />
+
+        @if (
+          signinForm.get('email')?.invalid &&
+          (signinForm.get('email')?.dirty || signinForm.get('email')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signinForm.get('email')?.hasError('required')) {
+              <span>Email is required.</span>
+            }
+            @if (signinForm.get('email')?.hasError('email')) {
+              <span>Invalid email format.</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="password">Password</label>
+        <input
+          pInputText
+          id="password"
+          variant="filled"
+          type="password"
+          autocomplete="off"
+          formControlName="password"
+          class="w-full"
+          required
+          placeholder="Enter your password"
+          minlength="6"
+        />
+
+        @if (
+          signinForm.get('password')?.invalid &&
+          (signinForm.get('password')?.dirty ||
+            signinForm.get('password')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signinForm.get('password')?.hasError('required')) {
+              <span>Password is required.</span>
+            }
+            @if (signinForm.get('password')?.hasError('minlength')) {
+              <span>Password must be at least 6 characters long.</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-center gap-4">
+        <p-button
+          class="lg w-full"
+          type="submit"
+          [disabled]="!signinForm.valid"
+          [loading]="loading()"
+          pRipple
+          icon="pi pi-user"
+          label="Sign In"
+          severity="success"
+        />
+      </div>
+
+      <p class="text-center text-sm mt-4 text-primary">
+        Don't have an account? <a [routerLink]="webUrl.signup">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>

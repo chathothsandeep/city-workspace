@@ -1,0 +1,140 @@
+<div class="flex items-center justify-content-center w-full min-h-screen">
+  <div class="flex flex-col items-center justify-content-center w-full">
+    <h2 class="text-2xl">Signup</h2>
+    <p>Create your account</p>
+    <form
+      class="flex flex-col mt-6 gap-5 w-1/4"
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="flex flex-col gap-2">
+        <label for="name">Name</label>
+        <input
+          pInputText
+          variant="filled"
+          id="name"
+          autocomplete="off"
+          formControlName="name"
+          class="w-full"
+          required
+          placeholder="Enter your name"
+        />
+
+        @if (
+          signupForm.get('name')?.invalid &&
+          (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signupForm.get('name')?.hasError('required')) {
+              <div>Name is required.</div>
+            }
+            @if (signupForm.get('name')?.hasError('minlength')) {
+              <div>Name must be at least 4 characters long.</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="email">Email</label>
+        <input
+          pInputText
+          id="email"
+          variant="filled"
+          autocomplete="off"
+          formControlName="email"
+          class="w-full"
+          required
+          placeholder="Enter your email"
+          type="email"
+        />
+
+        @if (
+          signupForm.get('email')?.invalid &&
+          (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signupForm.get('email')?.hasError('required')) {
+              <div>Email is required.</div>
+            }
+            @if (signupForm.get('email')?.hasError('email')) {
+              <div>Invalid email format.</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="password">Password</label>
+        <input
+          pInputText
+          id="password"
+          variant="filled"
+          type="password"
+          autocomplete="off"
+          formControlName="password"
+          class="w-full"
+          required
+          placeholder="Enter your password"
+          minlength="6"
+        />
+
+        @if (
+          signupForm.get('password')?.invalid &&
+          (signupForm.get('password')?.dirty ||
+            signupForm.get('password')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signupForm.get('password')?.hasError('required')) {
+              <div>Password is required.</div>
+            }
+            @if (signupForm.get('password')?.hasError('minlength')) {
+              <div>Password must be at least 6 characters long.</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          pInputText
+          id="confirmPassword"
+          type="password"
+          variant="filled"
+          autocomplete="off"
+          formControlName="confirmPassword"
+          class="w-full"
+          required
+          placeholder="Confirm your password"
+          minlength="6"
+        />
+
+        @if (
+          signupForm.get('confirmPassword')?.invalid &&
+          (signupForm.get('confirmPassword')?.dirty ||
+            signupForm.get('confirmPassword')?.touched)
+        ) {
+          <div class="text-red-700 text-sm mt-1">
+            @if (signupForm.get('confirmPassword')?.hasError('required')) {
+              <div>Confirm Password is required.</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="card flex justify-center gap-4">
+        <p-button
+          class="lg w-full"
+          type="submit"
+          [disabled]="!signupForm.valid"
+          [loading]="loading()"
+          pRipple
+          icon="pi pi-user"
+          label="Sign Up"
+          severity="success"
+        />
+      </div>
+    </form>
+  </div>
+</div>
