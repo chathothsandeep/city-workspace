@@ -2,10 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import {
-  SubscriptionEntity,
-  UpdateTenantDto,
-} from '@city-workspace/shared-models';
+import { SubscriptionEntity } from '@city-workspace/shared-models';
 import { SubscriptionService } from './subscription.service';
 import { AlertService } from '../../lib/services/alert.service';
 import { SpinnerComponent } from '../components/spinner.component';
@@ -14,6 +11,7 @@ import { AppConstants } from '../../lib/constants/app.constants';
 import { Router } from '@angular/router';
 import { WebUrl } from '../../lib/constants/url.constants';
 import { DrawerModule } from 'primeng/drawer';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-subscription',
@@ -23,6 +21,7 @@ import { DrawerModule } from 'primeng/drawer';
     CardModule,
     SpinnerComponent,
     DrawerModule,
+    RippleModule,
   ],
   templateUrl: './subscription.component.html',
   standalone: true,
