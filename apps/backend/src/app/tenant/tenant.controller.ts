@@ -22,7 +22,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('tenant')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
-
+    
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   create(@Body('data') jsonData: string, @UploadedFile() file: any) {

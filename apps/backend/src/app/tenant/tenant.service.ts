@@ -25,6 +25,7 @@ export class TenantService implements CrudService<TenantEntity> {
       HttpErrorHelper.handleError(error);
     }
   }
+    
   async findAll(params: { [key: string]: any }): Promise<TenantEntity[]> {
     try {
       const tenants = await this.repo.findAll(params);

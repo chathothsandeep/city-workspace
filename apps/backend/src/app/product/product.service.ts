@@ -11,9 +11,12 @@ import { ProductRepo } from './product.repo';
 @Injectable()
 export class ProductService implements CrudService<ProductEntity> {
   constructor(private readonly repo: ProductRepo) {}
-  async create(data: CreateProductDto): Promise<ProductEntity> {
+  async create(
+    data: CreateProductDto,
+    file: any,
+  ): Promise<ProductEntity | null> {
     try {
-      const product = await this.repo.create(data);
+      const product = await this.repo.create(data, file);
       if (!product) {
         throw new HttpException(
           'Product cannot be created',

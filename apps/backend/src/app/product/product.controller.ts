@@ -8,20 +8,25 @@ import {
   Query,
   ParseIntPipe,
   Put,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import {
   CreateProductDto,
   UpdateProductDto,
 } from '@city-workspace/shared-models';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly service: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.service.create(createProductDto);
+  @UseInterceptors(FileInterceptor('file'))
+  create(@Body('data') jsonData: string, @UploadedFile() file: any) {
+    const dto: CreateProductDto = JSON.parse(jsonData);
+    return this.service.create(dto, file);
   }
 
   @Get()

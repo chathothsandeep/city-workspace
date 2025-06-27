@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CrudService } from '../../lib/crud';
 import {
   CreateProductDto,
@@ -6,11 +6,19 @@ import {
   UpdateProductDto,
 } from '@city-workspace/shared-models';
 import { db } from '../../lib/db';
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import { LogHelper } from '../../lib/helpers/log.helper';
 
 @Injectable()
 export class ProductRepo implements CrudService<ProductEntity> {
-  create(data: CreateProductDto): Promise<ProductEntity> {
-    return db.product.create({ data });
+  async create(data: CreateProductDto, file?: any): Promise<ProductEntity> {
+    let image: string | undefined = undefined;
+    if (file) image = await this.uploadProductImage(file);
+    return db.product.create({
+      data: { ...data, image: image },
+    });
   }
   findAll(params: { [key: string]: any }): Promise<ProductEntity[]> {
     return db.product.findMany({
@@ -26,5 +34,33 @@ export class ProductRepo implements CrudService<ProductEntity> {
 
   delete(id: number): Promise<ProductEntity> {
     return db.product.delete({ where: { id } });
+  }
+
+  async uploadProductImage(file: any): Promise<string> {
+    if (!file) throw new Error('File is required');
+    const uploadsDir = path.resolve(
+      process.cwd(),
+      'apps',
+      'backend',
+      'uploads',
+      'product-images',
+    );
+    const fileExtension = path.extname(file.originalname);
+    const uniqueFilename = `${uuidv4()}${fileExtension}`;
+    const filePath = path.join(uploadsDir, uniqueFilename);
+    try {
+      await fs.mkdir(uploadsDir, { recursive: true });
+      await fs.writeFile(filePath, file.buffer);
+      return `/uploads/product-images/${uniqueFilename}`;
+    } catch (error) {
+      LogHelper.getInstance().error(
+        `Failed to save uploaded file: ${error.message}`,
+        'TenantRepo',
+      );
+      throw new HttpException(
+        'Error processing company logo upload.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

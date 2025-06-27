@@ -26,6 +26,7 @@ export class TenantRepo implements CrudService<TenantEntity> {
       select: selectedTenantFields,
     });
   }
+    
   async findAll(params: { [key: string]: any }): Promise<TenantEntity[]> {
     const tenants = await db.tenant.findMany();
     return tenants;

@@ -6,23 +6,22 @@ import { TenantComponent } from './tenant/tenant.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { DashboardLayout } from './layouts/dashboard.layout';
 import { MinimalLayout } from './layouts/minimal.layout';
+import { CreateProduct } from './product/create/create.product';
 
 export const appRoutes: Route[] = [
   {
     path: '',
     component: DashboardLayout,
     children: [
-      //   {
-      //     path: 'dashboard',
-      //     loadChildren: () =>
-      //       import('./pages/dashboard/dashboard.module').then(
-      //         (m) => m.DashboardModule,
-      //       ),
-      //   },
       {
         path: '',
         title: 'Dashboard',
         component: HomeComponent,
+      },
+      {
+        path: 'create-product',
+        title: 'Create Product',
+        component: CreateProduct,
       },
     ],
   },
@@ -30,11 +29,6 @@ export const appRoutes: Route[] = [
     path: '',
     component: MinimalLayout,
     children: [
-      //   {
-      //     path: 'login',
-      //     loadChildren: () =>
-      //       import('./pages/login/login.module').then((m) => m.LoginModule),
-      //   },
       {
         path: 'signup',
         title: 'Create Account',

@@ -40,7 +40,6 @@ export class TenantComponent implements OnInit {
   private alertService = inject(AlertService);
   private cookieService = inject(CookieService);
   private authService = inject(AuthService);
-
   visible = false;
   file: File | undefined = undefined;
   userId: number | undefined = undefined;

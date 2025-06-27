@@ -1,10 +1,11 @@
 @import 'tailwindcss';
 @import 'primeicons/primeicons.css';
+@import './fonts.css';
 
 * {
   box-sizing: border-box;
 }
 
-.p-button {
-  width: 100%;
+body {
+  font-family: 'Gantari', sans-serif;
 }

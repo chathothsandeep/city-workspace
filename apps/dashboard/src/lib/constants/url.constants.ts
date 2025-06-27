@@ -5,6 +5,7 @@ export class WebUrl {
   public static signin = '/signin';
   public static createTenant = '/tenant';
   public static subscription = '/subscription';
+  public static createProduct = '/create-product';
 }
 
 export class ApiUrl {
@@ -12,6 +13,6 @@ export class ApiUrl {
   public static signUp = `${ApiUrl.BASE_URL}/auth/signup`;
   public static signIn = `${ApiUrl.BASE_URL}/auth/login`;
   public static tenant = `${ApiUrl.BASE_URL}/tenant`;
-  public static tenantLogo = `${ApiUrl.BASE_URL}/tenant/logo`;
+  public static product = `${ApiUrl.BASE_URL}/product`;
   public static subscription = `${ApiUrl.BASE_URL}/subscription`;
 }
