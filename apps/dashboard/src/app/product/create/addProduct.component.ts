@@ -29,7 +29,7 @@ import { ProductService } from '../product.service';
     TextareaModule,
     Chip,
   ],
-  templateUrl: './create.product.html',
+  templateUrl: './addProduct.component.html',
   styles: ``,
 })
 export class CreateProduct implements OnInit {

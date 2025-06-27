@@ -151,7 +151,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   quantity: 'quantity',
   unit: 'unit',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.SubscriptionScalarFieldEnum = {

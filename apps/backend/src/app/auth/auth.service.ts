@@ -15,6 +15,7 @@ import {
 } from '@city-workspace/shared-models';
 import { tokenExpiry } from '../../lib/const/appConstants';
 import { ConfigService } from '@nestjs/config';
+import { LogHelper } from '../../lib/helpers/log.helper';
 
 @Injectable()
 export class AuthService {
@@ -81,5 +82,15 @@ export class AuthService {
     } catch (error) {
       HttpErrorHelper.handleError(error);
     }
+  }
+
+  getPayload(token: string) {
+    const payload = this.jwtService.decode(token);
+    LogHelper.getInstance().log(payload, 'payload');
+    return payload;
+  }
+
+  getToken(req: any) {
+    return req.headers.authorization?.split(' ')[1];
   }
 }

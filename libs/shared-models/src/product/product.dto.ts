@@ -48,6 +48,10 @@ export class CreateProductDto {
   @MaxLength(50)
   unit!: string;
 
+  @IsNumber()
+  @IsOptional()
+  tenantId?: number;
+
   constructor(data?: Partial<CreateProductDto>) {
     Object.assign(this, data);
   }

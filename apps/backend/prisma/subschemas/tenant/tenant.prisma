@@ -1,6 +1,7 @@
 import { Address } from "../address/address"
 import { User } from "../user/user"
 import { Subscription } from "../subscription/subscription"
+import { Product } from "../product/product"
 
 model Tenant {
     id             Int           @id @default(autoincrement())
@@ -18,4 +19,5 @@ model Tenant {
     updatedAt      DateTime      @updatedAt
     subscriptionId Int?
     subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+    products       Product[]
 }

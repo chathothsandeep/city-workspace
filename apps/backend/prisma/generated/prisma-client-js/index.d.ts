@@ -1551,6 +1551,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type TenantCountOutputType
+   */
+
+  export type TenantCountOutputType = {
+    products: number
+  }
+
+  export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | TenantCountOutputTypeCountProductsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCountOutputType
+     */
+    select?: TenantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -2920,12 +2951,14 @@ export namespace Prisma {
     id: number | null
     price: number | null
     quantity: number | null
+    tenantId: number | null
   }
 
   export type ProductSumAggregateOutputType = {
     id: number | null
     price: number | null
     quantity: number | null
+    tenantId: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -2940,6 +2973,7 @@ export namespace Prisma {
     unit: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    tenantId: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -2954,6 +2988,7 @@ export namespace Prisma {
     unit: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    tenantId: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -2969,6 +3004,7 @@ export namespace Prisma {
     unit: number
     createdAt: number
     updatedAt: number
+    tenantId: number
     _all: number
   }
 
@@ -2977,12 +3013,14 @@ export namespace Prisma {
     id?: true
     price?: true
     quantity?: true
+    tenantId?: true
   }
 
   export type ProductSumAggregateInputType = {
     id?: true
     price?: true
     quantity?: true
+    tenantId?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -2997,6 +3035,7 @@ export namespace Prisma {
     unit?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -3011,6 +3050,7 @@ export namespace Prisma {
     unit?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -3026,6 +3066,7 @@ export namespace Prisma {
     unit?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
     _all?: true
   }
 
@@ -3128,6 +3169,7 @@ export namespace Prisma {
     unit: string
     createdAt: Date
     updatedAt: Date
+    tenantId: number | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -3162,6 +3204,8 @@ export namespace Prisma {
     unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3177,6 +3221,8 @@ export namespace Prisma {
     unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3192,6 +3238,8 @@ export namespace Prisma {
     unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -3207,13 +3255,25 @@ export namespace Prisma {
     unit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "tags" | "barcode" | "image" | "price" | "priceSymbol" | "quantity" | "unit" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "tags" | "barcode" | "image" | "price" | "priceSymbol" | "quantity" | "unit" | "createdAt" | "updatedAt" | "tenantId", ExtArgs["result"]["product"]>
+  export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
+  }
+  export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
+  }
+  export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | Product$tenantArgs<ExtArgs>
+  }
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
-    objects: {}
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -3227,6 +3287,7 @@ export namespace Prisma {
       unit: string
       createdAt: Date
       updatedAt: Date
+      tenantId: number | null
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -3621,6 +3682,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends Product$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Product$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3662,6 +3724,7 @@ export namespace Prisma {
     readonly unit: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
+    readonly tenantId: FieldRef<"Product", 'Int'>
   }
     
 
@@ -3678,6 +3741,10 @@ export namespace Prisma {
      * Omit specific fields from the Product
      */
     omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
     /**
      * Filter, which Product to fetch.
      */
@@ -3697,6 +3764,10 @@ export namespace Prisma {
      */
     omit?: ProductOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
      * Filter, which Product to fetch.
      */
     where: ProductWhereUniqueInput
@@ -3714,6 +3785,10 @@ export namespace Prisma {
      * Omit specific fields from the Product
      */
     omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
     /**
      * Filter, which Product to fetch.
      */
@@ -3763,6 +3838,10 @@ export namespace Prisma {
      */
     omit?: ProductOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
      * Filter, which Product to fetch.
      */
     where?: ProductWhereInput
@@ -3811,6 +3890,10 @@ export namespace Prisma {
      */
     omit?: ProductOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
      * Filter, which Products to fetch.
      */
     where?: ProductWhereInput
@@ -3854,6 +3937,10 @@ export namespace Prisma {
      */
     omit?: ProductOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
      * The data needed to create a Product.
      */
     data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
@@ -3887,6 +3974,10 @@ export namespace Prisma {
      */
     data: ProductCreateManyInput | ProductCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3901,6 +3992,10 @@ export namespace Prisma {
      * Omit specific fields from the Product
      */
     omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
     /**
      * The data needed to update a Product.
      */
@@ -3953,6 +4048,10 @@ export namespace Prisma {
      * Limit how many Products to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3967,6 +4066,10 @@ export namespace Prisma {
      * Omit specific fields from the Product
      */
     omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
     /**
      * The filter to search for the Product to update in case it exists.
      */
@@ -3994,6 +4097,10 @@ export namespace Prisma {
      */
     omit?: ProductOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
      * Filter which Product to delete.
      */
     where: ProductWhereUniqueInput
@@ -4014,6 +4121,25 @@ export namespace Prisma {
   }
 
   /**
+   * Product.tenant
+   */
+  export type Product$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4025,6 +4151,10 @@ export namespace Prisma {
      * Omit specific fields from the Product
      */
     omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
   }
 
 
@@ -5487,6 +5617,8 @@ export namespace Prisma {
     address?: boolean | Tenant$addressArgs<ExtArgs>
     user?: boolean | Tenant$userArgs<ExtArgs>
     subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
+    products?: boolean | Tenant$productsArgs<ExtArgs>
+    _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5543,6 +5675,8 @@ export namespace Prisma {
     address?: boolean | Tenant$addressArgs<ExtArgs>
     user?: boolean | Tenant$userArgs<ExtArgs>
     subscription?: boolean | Tenant$subscriptionArgs<ExtArgs>
+    products?: boolean | Tenant$productsArgs<ExtArgs>
+    _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Tenant$userArgs<ExtArgs>
@@ -5559,6 +5693,7 @@ export namespace Prisma {
       address: Prisma.$AddressPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs> | null
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+      products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5970,6 +6105,7 @@ export namespace Prisma {
     address<T extends Tenant$addressArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends Tenant$userArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subscription<T extends Tenant$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    products<T extends Tenant$productsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6461,6 +6597,30 @@ export namespace Prisma {
      */
     include?: SubscriptionInclude<ExtArgs> | null
     where?: SubscriptionWhereInput
+  }
+
+  /**
+   * Tenant.products
+   */
+  export type Tenant$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
   /**
@@ -11108,7 +11268,8 @@ export namespace Prisma {
     quantity: 'quantity',
     unit: 'unit',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    tenantId: 'tenantId'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -11438,6 +11599,8 @@ export namespace Prisma {
     unit?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    tenantId?: IntNullableFilter<"Product"> | number | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -11453,6 +11616,8 @@ export namespace Prisma {
     unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -11471,6 +11636,8 @@ export namespace Prisma {
     unit?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    tenantId?: IntNullableFilter<"Product"> | number | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
@@ -11486,6 +11653,7 @@ export namespace Prisma {
     unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -11509,6 +11677,7 @@ export namespace Prisma {
     unit?: StringWithAggregatesFilter<"Product"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    tenantId?: IntNullableWithAggregatesFilter<"Product"> | number | null
   }
 
   export type SubscriptionWhereInput = {
@@ -11617,6 +11786,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    products?: ProductListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -11635,6 +11805,7 @@ export namespace Prisma {
     address?: AddressOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     subscription?: SubscriptionOrderByWithRelationInput
+    products?: ProductOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -11656,6 +11827,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    products?: ProductListRelationFilter
   }, "id" | "userId">
 
   export type TenantOrderByWithAggregationInput = {
@@ -12101,6 +12273,7 @@ export namespace Prisma {
     unit: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutProductsInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -12116,6 +12289,7 @@ export namespace Prisma {
     unit: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId?: number | null
   }
 
   export type ProductUpdateInput = {
@@ -12130,6 +12304,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutProductsNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -12145,6 +12320,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductCreateManyInput = {
@@ -12160,6 +12336,7 @@ export namespace Prisma {
     unit: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId?: number | null
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -12189,6 +12366,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SubscriptionCreateInput = {
@@ -12303,6 +12481,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutTenantInput
     user?: UserCreateNestedOneWithoutTenantInput
     subscription?: SubscriptionCreateNestedOneWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -12319,6 +12498,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subscriptionId?: number | null
     address?: AddressUncheckedCreateNestedOneWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -12334,6 +12514,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutTenantNestedInput
     user?: UserUpdateOneWithoutTenantNestedInput
     subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -12350,6 +12531,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
     address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -12941,12 +13123,14 @@ export namespace Prisma {
     unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -12961,6 +13145,7 @@ export namespace Prisma {
     unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -12975,12 +13160,14 @@ export namespace Prisma {
     unit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -13066,6 +13253,16 @@ export namespace Prisma {
   export type SubscriptionNullableScalarRelationFilter = {
     is?: SubscriptionWhereInput | null
     isNot?: SubscriptionWhereInput | null
+  }
+
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TenantCountOrderByAggregateInput = {
@@ -13407,9 +13604,25 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type TenantCreateNestedOneWithoutProductsInput = {
+    create?: XOR<TenantCreateWithoutProductsInput, TenantUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutProductsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type ProductUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type TenantUpdateOneWithoutProductsNestedInput = {
+    create?: XOR<TenantCreateWithoutProductsInput, TenantUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutProductsInput
+    upsert?: TenantUpsertWithoutProductsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutProductsInput, TenantUpdateWithoutProductsInput>, TenantUncheckedUpdateWithoutProductsInput>
   }
 
   export type SubscriptionCreatefeaturesInput = {
@@ -13485,10 +13698,24 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput
   }
 
+  export type ProductCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput> | ProductCreateWithoutTenantInput[] | ProductUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutTenantInput | ProductCreateOrConnectWithoutTenantInput[]
+    createMany?: ProductCreateManyTenantInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
   export type AddressUncheckedCreateNestedOneWithoutTenantInput = {
     create?: XOR<AddressCreateWithoutTenantInput, AddressUncheckedCreateWithoutTenantInput>
     connectOrCreate?: AddressCreateOrConnectWithoutTenantInput
     connect?: AddressWhereUniqueInput
+  }
+
+  export type ProductUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput> | ProductCreateWithoutTenantInput[] | ProductUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutTenantInput | ProductCreateOrConnectWithoutTenantInput[]
+    createMany?: ProductCreateManyTenantInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type AddressUpdateOneWithoutTenantNestedInput = {
@@ -13521,6 +13748,20 @@ export namespace Prisma {
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutTenantInput, SubscriptionUpdateWithoutTenantInput>, SubscriptionUncheckedUpdateWithoutTenantInput>
   }
 
+  export type ProductUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput> | ProductCreateWithoutTenantInput[] | ProductUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutTenantInput | ProductCreateOrConnectWithoutTenantInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutTenantInput | ProductUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ProductCreateManyTenantInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutTenantInput | ProductUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutTenantInput | ProductUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
   export type AddressUncheckedUpdateOneWithoutTenantNestedInput = {
     create?: XOR<AddressCreateWithoutTenantInput, AddressUncheckedCreateWithoutTenantInput>
     connectOrCreate?: AddressCreateOrConnectWithoutTenantInput
@@ -13529,6 +13770,20 @@ export namespace Prisma {
     delete?: AddressWhereInput | boolean
     connect?: AddressWhereUniqueInput
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutTenantInput, AddressUpdateWithoutTenantInput>, AddressUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ProductUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput> | ProductCreateWithoutTenantInput[] | ProductUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutTenantInput | ProductCreateOrConnectWithoutTenantInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutTenantInput | ProductUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ProductCreateManyTenantInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutTenantInput | ProductUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutTenantInput | ProductUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -14022,6 +14277,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutTenantInput
     subscription?: SubscriptionCreateNestedOneWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAddressInput = {
@@ -14037,6 +14293,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subscriptionId?: number | null
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAddressInput = {
@@ -14105,6 +14362,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutTenantNestedInput
     subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAddressInput = {
@@ -14120,6 +14378,85 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutProductsInput = {
+    name: string
+    phone: string
+    email: string
+    website?: string | null
+    lat: number
+    long: number
+    logo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address?: AddressCreateNestedOneWithoutTenantInput
+    user?: UserCreateNestedOneWithoutTenantInput
+    subscription?: SubscriptionCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutProductsInput = {
+    id?: number
+    name: string
+    phone: string
+    email: string
+    website?: string | null
+    lat: number
+    long: number
+    logo?: string | null
+    userId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subscriptionId?: number | null
+    address?: AddressUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutProductsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutProductsInput, TenantUncheckedCreateWithoutProductsInput>
+  }
+
+  export type TenantUpsertWithoutProductsInput = {
+    update: XOR<TenantUpdateWithoutProductsInput, TenantUncheckedUpdateWithoutProductsInput>
+    create: XOR<TenantCreateWithoutProductsInput, TenantUncheckedCreateWithoutProductsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutProductsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutProductsInput, TenantUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type TenantUpdateWithoutProductsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: FloatFieldUpdateOperationsInput | number
+    long?: FloatFieldUpdateOperationsInput | number
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneWithoutTenantNestedInput
+    user?: UserUpdateOneWithoutTenantNestedInput
+    subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutProductsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: FloatFieldUpdateOperationsInput | number
+    long?: FloatFieldUpdateOperationsInput | number
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
+    address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSubscriptionInput = {
@@ -14134,6 +14471,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     address?: AddressCreateNestedOneWithoutTenantInput
     user?: UserCreateNestedOneWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionInput = {
@@ -14149,6 +14487,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address?: AddressUncheckedCreateNestedOneWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionInput = {
@@ -14299,6 +14638,45 @@ export namespace Prisma {
     create: XOR<SubscriptionCreateWithoutTenantInput, SubscriptionUncheckedCreateWithoutTenantInput>
   }
 
+  export type ProductCreateWithoutTenantInput = {
+    name: string
+    description: string
+    tags?: ProductCreatetagsInput | string[]
+    barcode: string
+    image?: string | null
+    price: number
+    priceSymbol?: string | null
+    quantity: number
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProductUncheckedCreateWithoutTenantInput = {
+    id?: number
+    name: string
+    description: string
+    tags?: ProductCreatetagsInput | string[]
+    barcode: string
+    image?: string | null
+    price: number
+    priceSymbol?: string | null
+    quantity: number
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProductCreateOrConnectWithoutTenantInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ProductCreateManyTenantInputEnvelope = {
+    data: ProductCreateManyTenantInput | ProductCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AddressUpsertWithoutTenantInput = {
     update: XOR<AddressUpdateWithoutTenantInput, AddressUncheckedUpdateWithoutTenantInput>
     create: XOR<AddressCreateWithoutTenantInput, AddressUncheckedCreateWithoutTenantInput>
@@ -14419,6 +14797,41 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sortOrder?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ProductUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutTenantInput, ProductUncheckedUpdateWithoutTenantInput>
+    create: XOR<ProductCreateWithoutTenantInput, ProductUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutTenantInput, ProductUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutTenantInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: IntFilter<"Product"> | number
+    name?: StringFilter<"Product"> | string
+    description?: StringFilter<"Product"> | string
+    tags?: StringNullableListFilter<"Product">
+    barcode?: StringFilter<"Product"> | string
+    image?: StringNullableFilter<"Product"> | string | null
+    price?: FloatFilter<"Product"> | number
+    priceSymbol?: StringNullableFilter<"Product"> | string | null
+    quantity?: IntFilter<"Product"> | number
+    unit?: StringFilter<"Product"> | string
+    createdAt?: DateTimeFilter<"Product"> | Date | string
+    updatedAt?: DateTimeFilter<"Product"> | Date | string
+    tenantId?: IntNullableFilter<"Product"> | number | null
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -14688,6 +15101,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     address?: AddressCreateNestedOneWithoutTenantInput
     subscription?: SubscriptionCreateNestedOneWithoutTenantInput
+    products?: ProductCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUserInput = {
@@ -14703,6 +15117,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subscriptionId?: number | null
     address?: AddressUncheckedCreateNestedOneWithoutTenantInput
+    products?: ProductUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUserInput = {
@@ -14852,6 +15267,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneWithoutTenantNestedInput
     subscription?: SubscriptionUpdateOneWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUserInput = {
@@ -14867,6 +15283,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptionId?: NullableIntFieldUpdateOperationsInput | number | null
     address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutTokensInput = {
@@ -14965,6 +15382,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneWithoutTenantNestedInput
     user?: UserUpdateOneWithoutTenantNestedInput
+    products?: ProductUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionInput = {
@@ -14980,6 +15398,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUncheckedUpdateOneWithoutTenantNestedInput
+    products?: ProductUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutSubscriptionInput = {
@@ -14992,6 +15411,65 @@ export namespace Prisma {
     long?: FloatFieldUpdateOperationsInput | number
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductCreateManyTenantInput = {
+    id?: number
+    name: string
+    description: string
+    tags?: ProductCreatetagsInput | string[]
+    barcode: string
+    image?: string | null
+    price: number
+    priceSymbol?: string | null
+    quantity: number
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProductUpdateWithoutTenantInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    tags?: ProductUpdatetagsInput | string[]
+    barcode?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceSymbol?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductUncheckedUpdateWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    tags?: ProductUpdatetagsInput | string[]
+    barcode?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceSymbol?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductUncheckedUpdateManyWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    tags?: ProductUpdatetagsInput | string[]
+    barcode?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceSymbol?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

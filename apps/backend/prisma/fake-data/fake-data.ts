@@ -68,6 +68,7 @@ export function fakeProductComplete() {
     unit: faker.lorem.words(5),
     createdAt: new Date(),
     updatedAt: faker.date.anytime(),
+    tenantId: undefined,
   };
 }
 export function fakeSubscription() {

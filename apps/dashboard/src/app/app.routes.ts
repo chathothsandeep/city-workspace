@@ -6,7 +6,7 @@ import { TenantComponent } from './tenant/tenant.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { DashboardLayout } from './layouts/dashboard.layout';
 import { MinimalLayout } from './layouts/minimal.layout';
-import { CreateProduct } from './product/create/create.product';
+import { CreateProduct } from './product/create/addProduct.component';
 
 export const appRoutes: Route[] = [
   {

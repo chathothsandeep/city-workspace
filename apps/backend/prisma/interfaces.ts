@@ -36,6 +36,8 @@ export interface Product {
   unit: string;
   createdAt: Date;
   updatedAt: Date;
+  tenantId: number | null;
+  tenant?: Tenant | null;
 }
 
 export interface Subscription {
@@ -69,6 +71,7 @@ export interface Tenant {
   updatedAt: Date;
   subscriptionId: number | null;
   subscription?: Subscription | null;
+  products?: Product[];
 }
 
 export interface Post {

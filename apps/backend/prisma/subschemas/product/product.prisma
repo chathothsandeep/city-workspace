@@ -1,3 +1,5 @@
+import { Tenant } from "../tenant/tenant"
+
 model Product {
     id          Int      @id @default(autoincrement())
     name        String
@@ -11,4 +13,6 @@ model Product {
     unit        String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    tenantId    Int?
+    tenant      Tenant?  @relation(fields: [tenantId], references: [id])
 }
