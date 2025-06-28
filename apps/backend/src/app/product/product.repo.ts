@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CrudService } from '../../lib/crud';
 import {
   CreateProductDto,
   ProductEntity,
@@ -12,12 +11,23 @@ import { v4 as uuidv4 } from 'uuid';
 import { LogHelper } from '../../lib/helpers/log.helper';
 
 @Injectable()
-export class ProductRepo implements CrudService<ProductEntity> {
-  async create(data: CreateProductDto, file?: any): Promise<ProductEntity> {
+export class ProductRepo {
+  async create(
+    data: CreateProductDto,
+    file?: any,
+    userId?: number,
+  ): Promise<ProductEntity> {
     let image: string | undefined = undefined;
     if (file) image = await this.uploadProductImage(file);
-    return db.product.create({
-      data: { ...data, image: image },
+    LogHelper.getInstance().log(image, 'repo');
+
+    return db.$transaction(async (tx) => {
+      const tenant = await tx.tenant.findUnique({
+        where: { userId: userId },
+      });
+      return tx.product.create({
+        data: { ...data, image: image, tenantId: tenant.id },
+      });
     });
   }
   findAll(params: { [key: string]: any }): Promise<ProductEntity[]> {

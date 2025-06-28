@@ -5,11 +5,10 @@ import {
   SubscriptionEntity,
   UpdateSubscriptionDto,
 } from '@city-workspace/shared-models';
-import { CrudService } from '../../lib/crud';
 import { HttpErrorHelper } from '../../lib/helpers/httpError.helper';
 
 @Injectable()
-export class SubscriptionService implements CrudService<SubscriptionEntity> {
+export class SubscriptionService  {
   constructor(private readonly repo: SubscriptionRepo) {}
   async create(data: CreateSubscriptionDto): Promise<SubscriptionEntity> {
     try {

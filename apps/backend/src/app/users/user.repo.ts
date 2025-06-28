@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CrudService } from '../../lib/crud';
 import { UpdateUserDto, UserEntity } from '@city-workspace/shared-models';
-
 import { selectedUserFields } from '../../lib/selectedFileds/user.field';
 import { db } from '../../lib/db';
 
 @Injectable()
-export class UserRepo implements CrudService<UserEntity> {
+export class UserRepo {
   create(data: any): Promise<UserEntity> {
     throw new Error('Method not implemented.');
   }

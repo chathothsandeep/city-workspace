@@ -1,11 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CrudService } from '../../lib/crud';
 import { CreateTenantDto, TenantEntity } from '@city-workspace/shared-models';
 import { TenantRepo } from './tenant.repo';
 import { HttpErrorHelper } from '../../lib/helpers/httpError.helper';
 
 @Injectable()
-export class TenantService implements CrudService<TenantEntity> {
+export class TenantService  {
   constructor(private readonly repo: TenantRepo) {}
   async create(
     data: CreateTenantDto,

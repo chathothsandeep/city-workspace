@@ -3,7 +3,7 @@ import {
   TenantEntity,
   UpdateTenantDto,
 } from '@city-workspace/shared-models';
-import { CrudService } from '../../lib/crud';
+
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -14,7 +14,7 @@ import { LogHelper } from '../../lib/helpers/log.helper';
 import { db } from '../../lib/db';
 
 @Injectable()
-export class TenantRepo implements CrudService<TenantEntity> {
+export class TenantRepo {
   async create(
     data: CreateTenantDto,
     file?: any,

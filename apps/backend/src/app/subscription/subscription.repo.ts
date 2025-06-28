@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CrudService } from '../../lib/crud';
 import {
   CreateSubscriptionDto,
   SubscriptionEntity,
@@ -8,7 +7,7 @@ import {
 import { db } from '../../lib/db';
 
 @Injectable()
-export class SubscriptionRepo implements CrudService<SubscriptionEntity> {
+export class SubscriptionRepo {
   create(data: CreateSubscriptionDto): Promise<SubscriptionEntity> {
     return db.subscription.create({ data });
   }

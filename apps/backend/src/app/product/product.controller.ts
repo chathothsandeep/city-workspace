@@ -18,16 +18,15 @@ import {
   UpdateProductDto,
 } from '@city-workspace/shared-models';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthService } from '../auth/auth.service';
+import { TokenHelper } from '../../lib/helpers/token.helper';
 
 @Controller('product')
 export class ProductController {
   constructor(
     private readonly service: ProductService,
-    private readonly authService: AuthService,
+    private readonly tokenService: TokenHelper,
   ) {}
 
-  // TODO: neet to check userId and token by using auth service
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   create(
@@ -35,16 +34,14 @@ export class ProductController {
     @UploadedFile() file: any,
     @Request() req,
   ) {
-    const token = this.authService.getToken(req);
-    const payload = this.authService.getPayload(token);
+    const token = this.tokenService.getToken(req);
+    const payload = this.tokenService.getPayload(token);
     const dto: CreateProductDto = JSON.parse(jsonData);
-    return this.service.create(dto, file);
+    return this.service.create(dto, file, payload.id);
   }
 
   @Get()
-  findAll(@Query() params: { [key: string]: any }, @Request() req) {
-    const token = this.authService.getToken(req);
-    const payload = this.authService.getPayload(token);
+  findAll(@Query() params: { [key: string]: any }) {
     return this.service.findAll(params);
   }
 

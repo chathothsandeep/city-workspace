@@ -4,19 +4,19 @@ import {
   ProductEntity,
   UpdateProductDto,
 } from '@city-workspace/shared-models';
-import { CrudService } from '../../lib/crud';
 import { HttpErrorHelper } from '../../lib/helpers/httpError.helper';
 import { ProductRepo } from './product.repo';
 
 @Injectable()
-export class ProductService implements CrudService<ProductEntity> {
+export class ProductService {
   constructor(private readonly repo: ProductRepo) {}
   async create(
     data: CreateProductDto,
     file: any,
+    userId: number,
   ): Promise<ProductEntity | null> {
     try {
-      const product = await this.repo.create(data, file);
+      const product = await this.repo.create(data, file, userId);
       if (!product) {
         throw new HttpException(
           'Product cannot be created',

@@ -3,12 +3,12 @@ import {
   CreateAddressDto,
   UpdateAddressDto,
 } from '@city-workspace/shared-models';
-import { CrudService } from '../../lib/crud';
+
 
 import { selectedAddressFields } from '../../lib/selectedFileds/addressFields';
 import { LogHelper } from '../../lib/helpers/log.helper';
 import { db } from '../../lib/db';
-export class AddressRepo implements CrudService<AddressEntity> {
+export class AddressRepo  {
   async findAll(params: { [key: string]: any }): Promise<AddressEntity[]> {
     if (params.id) {
       return await db.address.findMany({
