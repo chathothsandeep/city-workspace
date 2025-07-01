@@ -4,11 +4,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { jwtOptions } from '../lib/jwtOption';
 import { configOptions } from '../lib/configOptions';
 import { TokenHelper } from '../lib/helpers/token.helper';
+import { FileUploadHelper } from '../lib/helpers/fileUpload.helper';
 
 @Global()
 @Module({
-  providers: [JwtService, ConfigService, TokenHelper],
-  exports: [JwtService, ConfigService, TokenHelper],
+  providers: [JwtService, ConfigService, TokenHelper, FileUploadHelper],
+  exports: [JwtService, ConfigService, TokenHelper, FileUploadHelper],
   imports: [
     ConfigModule.forRoot(configOptions),
     JwtModule.registerAsync({

@@ -4,7 +4,7 @@ import { TenantRepo } from './tenant.repo';
 import { HttpErrorHelper } from '../../lib/helpers/httpError.helper';
 
 @Injectable()
-export class TenantService  {
+export class TenantService {
   constructor(private readonly repo: TenantRepo) {}
   async create(
     data: CreateTenantDto,
@@ -24,7 +24,7 @@ export class TenantService  {
       HttpErrorHelper.handleError(error);
     }
   }
-    
+
   async findAll(params: { [key: string]: any }): Promise<TenantEntity[]> {
     try {
       const tenants = await this.repo.findAll(params);
@@ -77,18 +77,6 @@ export class TenantService  {
         throw new HttpException('Tenant Not Found', HttpStatus.NOT_FOUND);
       }
       return tenant;
-    } catch (error) {
-      HttpErrorHelper.handleError(error);
-    }
-  }
-
-  async uploadCompanyLogo(file: File): Promise<string> {
-    try {
-      const logoUrl = await this.repo.uploadCompanyLogo(file);
-      if (!logoUrl) {
-        throw new HttpException('Logo upload failed', HttpStatus.BAD_REQUEST);
-      }
-      return logoUrl;
     } catch (error) {
       HttpErrorHelper.handleError(error);
     }

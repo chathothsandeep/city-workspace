@@ -6,6 +6,7 @@ export class WebUrl {
   public static createTenant = '/tenant';
   public static subscription = '/subscription';
   public static createProduct = '/create-product';
+  public static products = '/products';
 }
 
 export class ApiUrl {

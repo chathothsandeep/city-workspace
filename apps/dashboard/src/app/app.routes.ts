@@ -7,6 +7,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { DashboardLayout } from './layouts/dashboard.layout';
 import { MinimalLayout } from './layouts/minimal.layout';
 import { CreateProduct } from './product/create/addProduct.component';
+import { Products } from './product/products';
 
 export const appRoutes: Route[] = [
   {
@@ -17,6 +18,11 @@ export const appRoutes: Route[] = [
         path: '',
         title: 'Dashboard',
         component: HomeComponent,
+      },
+      {
+        path: 'products',
+        title: 'Products',
+        component: Products,
       },
       {
         path: 'create-product',
@@ -51,8 +57,10 @@ export const appRoutes: Route[] = [
       },
     ],
   },
-  {
-    path: '**',
-    redirectTo: 'login',
-  },
+  //   {
+  //     path: '**',
+  //     redirectTo: 'login',
+  //     pathMatch: 'full',
+  //     data: { regex: '^((?!uploads/.*).)*$' },
+  //   },
 ];
