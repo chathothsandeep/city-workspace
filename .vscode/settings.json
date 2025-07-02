@@ -2,5 +2,6 @@
   "nxConsole.generateAiAgentRules": true,
   "editor.fontFamily": "Mononoki",
   "editor.fontLigatures": true,
-  "editor.fontSize": 15
+  "editor.fontSize": 15,
+  "vsicons.presets.nestjs": true
 }
