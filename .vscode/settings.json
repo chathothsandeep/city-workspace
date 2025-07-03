@@ -3,5 +3,10 @@
   "editor.fontFamily": "Mononoki",
   "editor.fontLigatures": true,
   "editor.fontSize": 15,
+<<<<<<< Updated upstream
   "vsicons.presets.nestjs": true
+=======
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true
+>>>>>>> Stashed changes
 }
