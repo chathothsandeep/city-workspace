@@ -50,9 +50,9 @@ export class ProductService {
       HttpErrorHelper.handleError(error);
     }
   }
-  async update(id: number, data: UpdateProductDto): Promise<ProductEntity> {
+  async update(id: number, data: UpdateProductDto, file: any): Promise<ProductEntity> {
     try {
-      const product = await this.repo.update(id, data);
+      const product = await this.repo.update(id, data, file);
       if (!product) {
         throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
       }

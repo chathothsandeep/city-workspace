@@ -34,7 +34,6 @@ import { ProductService } from '../product.service';
 })
 export class CreateProduct implements OnInit {
   formData!: FormGroup;
-  //   product: ProductEntity | null = null;
   private router = inject(Router);
   private alertService = inject(AlertService);
   private cookieService = inject(CookieService);
@@ -42,6 +41,7 @@ export class CreateProduct implements OnInit {
   file: File | undefined = undefined;
   loading = false;
   tags = signal<string[]>([]);
+  url = URL;
 
   ngOnInit(): void {
     this.initialiseFormData();

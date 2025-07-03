@@ -19,6 +19,7 @@ import {
 } from '@city-workspace/shared-models';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { TokenHelper } from '../../lib/helpers/token.helper';
+import { LogHelper } from '../../lib/helpers/log.helper';
 
 @Controller('product')
 export class ProductController {
@@ -51,11 +52,14 @@ export class ProductController {
   }
 
   @Put(':id')
+  @UseInterceptors(FileInterceptor('file'))
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateProductDto: UpdateProductDto,
+    @Body() jsonData: string,
+    @UploadedFile() file: any,
   ) {
-    return this.service.update(id, updateProductDto);
+    const updateProductDto: UpdateProductDto = JSON.parse(jsonData['data']);
+    return this.service.update(id, updateProductDto, file);
   }
 
   @Delete(':id')

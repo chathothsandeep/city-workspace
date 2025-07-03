@@ -16,7 +16,10 @@
     "titleBar.activeBackground": "#4d4434",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#4d443499",
-    "titleBar.inactiveForeground": "#e7e7e799"
-},
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "editor.fontFamily": "Mononoki",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 15
+  },
   "peacock.color": "#4d4434"
 }

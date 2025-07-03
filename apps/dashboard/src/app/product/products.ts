@@ -7,8 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { WebUrl } from '../../lib/constants/url.constants';
 import { FormsModule } from '@angular/forms';
-import { DataView } from 'primeng/dataview';
 import { Select } from 'primeng/select';
+import { TableSkelton } from '../components/table-skeleton';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +19,7 @@ import { Select } from 'primeng/select';
     NgOptimizedImage,
     Select,
     FormsModule,
+    TableSkelton,
   ],
   templateUrl: './products.html',
   styles: ``,
@@ -52,5 +53,14 @@ export class Products implements OnInit {
 
   async gotoCreateProduct() {
     await this.router.navigate([WebUrl.createProduct]);
+  }
+
+  async onSelectChange(event: any, product: ProductEntity) {
+    this.selectedOption = event.value;
+    if (this.selectedOption === 'See Details') {
+      await this.router.navigate([`${WebUrl.editProduct}/${product.id}`]);
+    } else {
+      // TODO: implement delete
+    }
   }
 }

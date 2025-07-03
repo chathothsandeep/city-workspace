@@ -8,6 +8,7 @@ import { DashboardLayout } from './layouts/dashboard.layout';
 import { MinimalLayout } from './layouts/minimal.layout';
 import { CreateProduct } from './product/create/addProduct.component';
 import { Products } from './product/products';
+import { ProductInfo } from './product/info/productInfo.component';
 
 export const appRoutes: Route[] = [
   {
@@ -28,6 +29,11 @@ export const appRoutes: Route[] = [
         path: 'create-product',
         title: 'Create Product',
         component: CreateProduct,
+      },
+      {
+        path: 'product-info/:id',
+        title: 'Product Details',
+        component: ProductInfo,
       },
     ],
   },

@@ -35,8 +35,20 @@ export class ProductRepo {
   find(id: number): Promise<ProductEntity> {
     return db.product.findUnique({ where: { id } });
   }
-  update(id: number, data: UpdateProductDto): Promise<ProductEntity> {
-    return db.product.update({ where: { id }, data });
+  async update(
+    id: number,
+    data: UpdateProductDto,
+    file: any,
+  ): Promise<ProductEntity> {
+    let image: string | undefined = undefined;
+    if (file) image = await this.uploader.uploadFile(file, 'product-images');
+    return db.product.update({
+      where: { id },
+      data: {
+        ...data,
+        image: image,
+      },
+    });
   }
 
   delete(id: number): Promise<ProductEntity> {
