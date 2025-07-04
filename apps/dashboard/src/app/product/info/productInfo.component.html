@@ -14,10 +14,19 @@
         <div class="text-lg font-bold mb-4">Product Details</div>
         <div class="flex justify-end gap-2 mt-4">
           <p-button
+            *ngIf="isEdit()"
             type="button"
             label="Cancel"
             (click)="onCancel()"
             variant="outlined"
+          />
+          <p-button
+            *ngIf="!isEdit()"
+            type="button"
+            label="Delete"
+            (click)="showDeleteDialog()"
+            variant="outlined"
+            [loading]="isDeleteLoading"
           />
           <p-button
             *ngIf="!isEdit()"
@@ -256,7 +265,7 @@
           <img
             *ngIf="!file && product().image"
             ngSrc="{{
-              product().image ? webUrl.BASE_URL + product().image : ''
+              product().image ? webUrl.SERVER_BASE_URL + product().image : ''
             }}"
             alt="Product Image"
             width="100"
@@ -273,5 +282,13 @@
         </div>
       </div>
     </form>
+    <app-dialog
+      [visible]="isDeleteDialogVisible()"
+      title="Delete Product"
+      message="Are you sure? You want to delete this product?"
+      okText="Delete"
+      (okEvent)="onDelete()"
+      (cancelEvent)="hideDeleteDialog()"
+    ></app-dialog>
   </div>
 }

@@ -9,6 +9,9 @@ import { WebUrl } from '../../lib/constants/url.constants';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { TableSkelton } from '../components/table-skeleton';
+import { AppDialog } from '../components/dialog';
+import { AlertService } from '../../lib/services/alert.service';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-products',
@@ -20,6 +23,8 @@ import { TableSkelton } from '../components/table-skeleton';
     Select,
     FormsModule,
     TableSkelton,
+    AppDialog,
+    Checkbox,
   ],
   templateUrl: './products.html',
   styles: ``,
@@ -31,10 +36,17 @@ export class Products implements OnInit {
   private router = inject(Router);
   webUrl = WebUrl;
   options = ['See Details', 'Delete'];
-  selectedOption: string | undefined;
+  selectedOptions: { [key: number]: string } = {};
+  selectedProducts: { [key: number]: boolean } = {};
+  isDeleteDialogVisible = signal(false);
+  isDeleteLoading = false;
+  private alertService = inject(AlertService);
 
   ngOnInit(): void {
     this.getProducts();
+    this.products().forEach((product) => {
+      this.selectedProducts[product.id] = false;
+    });
   }
 
   getProducts() {
@@ -51,16 +63,65 @@ export class Products implements OnInit {
     });
   }
 
-  async gotoCreateProduct() {
-    await this.router.navigate([WebUrl.createProduct]);
+  gotoCreateProduct() {
+    this.router.navigate([WebUrl.createProduct]);
   }
 
   async onSelectChange(event: any, product: ProductEntity) {
-    this.selectedOption = event.value;
-    if (this.selectedOption === 'See Details') {
+    this.selectedOptions[product.id] = event.value;
+    if (this.selectedOptions[product.id] === 'See Details') {
       await this.router.navigate([`${WebUrl.editProduct}/${product.id}`]);
     } else {
-      // TODO: implement delete
+      this.showDeleteDialog();
     }
+  }
+
+  showDeleteDialog() {
+    this.isDeleteDialogVisible?.set(true);
+  }
+
+  hideDeleteDialog() {
+    this.selectedOptions = {};
+    this.isDeleteDialogVisible?.set(false);
+  }
+
+  onDelete(product: ProductEntity) {
+    this.isDeleteLoading = true;
+    this.isDeleteDialogVisible.set(false);
+    this.service.deleteProduct(product.id).subscribe({
+      next: () => {
+        this.isDeleteLoading = false;
+        window.location.reload();
+        this.alertService.showSuccess('Product deleted successfully');
+      },
+      error: (error) => {
+        this.isDeleteLoading = false;
+        const errorMessage = error.error.message?.message || error;
+        this.alertService.showError(JSON.stringify(errorMessage));
+      },
+    });
+  }
+
+  selectAllProducts(event: any) {
+    if (event.checked) {
+      this.products().forEach((product) => {
+        this.selectedProducts[product.id] = true;
+      });
+    } else {
+      this.products().forEach((product) => {
+        this.selectedProducts[product.id] = false;
+      });
+    }
+  }
+
+  deleteSelectedProducts() {
+    const selectedProducts = this.products().filter((product) => {
+      return this.selectedProducts[product.id];
+    });
+    selectedProducts.forEach((product) => {
+      this.service.deleteProduct(product.id);
+    });
+    this.alertService.showSuccess('Products deleted successfully');
+    window.location.reload();
   }
 }

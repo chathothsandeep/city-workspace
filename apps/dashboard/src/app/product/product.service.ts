@@ -39,4 +39,8 @@ export class ProductService {
     if (file) formData.append('file', file);
     return this.http.put<ProductEntity>(`${ApiUrl.product}/${id}`, formData);
   }
+
+  deleteProduct(id: number): Observable<ProductEntity> {
+    return this.http.delete<ProductEntity>(`${ApiUrl.product}/${id}`);
+  }
 }

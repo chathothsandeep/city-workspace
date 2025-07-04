@@ -6,9 +6,9 @@ import { TenantComponent } from './tenant/tenant.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { DashboardLayout } from './layouts/dashboard.layout';
 import { MinimalLayout } from './layouts/minimal.layout';
-import { CreateProduct } from './product/create/addProduct.component';
 import { Products } from './product/products';
 import { ProductInfo } from './product/info/productInfo.component';
+import { CreateProduct } from './product/create/addProduct.component';
 
 export const appRoutes: Route[] = [
   {
@@ -21,19 +21,24 @@ export const appRoutes: Route[] = [
         component: HomeComponent,
       },
       {
-        path: 'products',
-        title: 'Products',
-        component: Products,
-      },
-      {
-        path: 'create-product',
-        title: 'Create Product',
-        component: CreateProduct,
-      },
-      {
-        path: 'product-info/:id',
-        title: 'Product Details',
-        component: ProductInfo,
+        path: 'product',
+        children: [
+          {
+            path: '',
+            title: 'Products',
+            component: Products,
+          },
+          {
+            path: 'create',
+            title: 'Create Product',
+            component: CreateProduct,
+          },
+          {
+            path: 'info/:id',
+            title: 'Product Details',
+            component: ProductInfo,
+          },
+        ],
       },
     ],
   },

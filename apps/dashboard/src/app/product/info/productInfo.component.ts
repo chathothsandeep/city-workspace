@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../lib/services/alert.service';
 import { ProductEntity, UpdateProductDto } from '@city-workspace/shared-models';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +17,7 @@ import { Chip } from 'primeng/chip';
 import { ProductService } from '../product.service';
 import { WebUrl } from '../../../lib/constants/url.constants';
 import { CardSkeleton } from '../../components/card-skeleton';
+import { AppDialog } from '../../components/dialog';
 
 @Component({
   selector: 'app-create.product',
@@ -31,16 +32,17 @@ import { CardSkeleton } from '../../components/card-skeleton';
     TextareaModule,
     Chip,
     CardSkeleton,
+    AppDialog,
   ],
   templateUrl: './productInfo.component.html',
   styles: ``,
 })
 export class ProductInfo implements OnInit {
-  id?: string;
   formData!: FormGroup;
   private alertService = inject(AlertService);
   private service = inject(ProductService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   file: File | undefined = undefined;
   loading = false;
   buttonLoading = false;
@@ -49,6 +51,8 @@ export class ProductInfo implements OnInit {
   product = signal<ProductEntity>({} as ProductEntity);
   url = URL;
   webUrl = WebUrl;
+  isDeleteDialogVisible = signal(false);
+  isDeleteLoading = false;
 
   ngOnInit(): void {
     this.initialiseFormData();
@@ -163,5 +167,31 @@ export class ProductInfo implements OnInit {
     } else {
       this.formData?.disable({ onlySelf: true, emitEvent: false });
     }
+  }
+
+  onDelete() {
+    this.isDeleteLoading = true;
+    this.isDeleteDialogVisible.set(false);
+    this.service.deleteProduct(this.product().id).subscribe({
+      next: () => {
+        this.isDeleteLoading = false;
+        this.router.navigate([WebUrl.products]).then(() => {
+          this.alertService.showSuccess('Product deleted successfully');
+        });
+      },
+      error: (error) => {
+        this.isDeleteLoading = false;
+        const errorMessage = error.error.message?.message || error;
+        this.alertService.showError(JSON.stringify(errorMessage));
+      },
+    });
+  }
+
+  showDeleteDialog() {
+    this.isDeleteDialogVisible?.set(true);
+  }
+
+  hideDeleteDialog() {
+    this.isDeleteDialogVisible?.set(false);
   }
 }

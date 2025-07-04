@@ -1,13 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   private storage: Storage | null;
+  private platformId = inject(PLATFORM_ID);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: unknown) {
+  constructor() {
     if (isPlatformBrowser(this.platformId as object)) {
       this.storage = localStorage;
     } else {

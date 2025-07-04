@@ -71,7 +71,6 @@ export class CreateProduct implements OnInit {
   }
 
   onSubmit() {
-    // this.product = null;
     this.alertService.clearMessages();
     const dto: CreateProductDto = this.formData.value;
     dto.tags = this.tags();
@@ -80,7 +79,6 @@ export class CreateProduct implements OnInit {
       this.service.createProduct(dto, this.file)?.subscribe({
         next: async (product) => {
           this.loading = false;
-          //   this.product = product;
           this.formData.reset();
           this.tags.set([]);
           this.file = undefined;
@@ -102,7 +100,6 @@ export class CreateProduct implements OnInit {
   }
 
   onTagInputKeyDown(event: KeyboardEvent) {
-    // event.preventDefault();
     if (event.key === 'Enter') {
       const inputElement = event.target as HTMLInputElement;
       const value = inputElement.value.trim();
