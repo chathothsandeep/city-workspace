@@ -5,24 +5,24 @@ export const environment = {
   apiBaseUrl: 'http://localhost:8000/api/v1',
 };
 
-export class WebUrl {
-  public static SERVER_BASE_URL = environment.serverBaseUrl;
-  public static DASHBOARD_BASE_URL = environment.dashboardBaseUrl;
-  public static home = '/';
-  public static signup = '/signup';
-  public static signin = '/signin';
-  public static createTenant = '/tenant';
-  public static subscription = '/subscription';
-  public static readonly products = '/product';
-  public static createProduct = `${WebUrl.products}/create`;
-  public static editProduct = `${WebUrl.products}/info`;
-}
+export const WebUrl = {
+  SERVER_BASE_URL: environment.serverBaseUrl,
+  DASHBOARD_BASE_URL: environment.dashboardBaseUrl,
+  home: '/',
+  signup: '/signup',
+  signin: '/signin',
+  createTenant: '/tenant',
+  subscription: '/subscription',
+  products: '/product',
+  createProduct: '/product/create',
+  editProduct: '/product/info',
+} as const;
 
-export class ApiUrl {
-  public static BASE_URL = environment.apiBaseUrl;
-  public static signUp = `${ApiUrl.BASE_URL}/auth/signup`;
-  public static signIn = `${ApiUrl.BASE_URL}/auth/login`;
-  public static tenant = `${ApiUrl.BASE_URL}/tenant`;
-  public static product = `${ApiUrl.BASE_URL}/product`;
-  public static subscription = `${ApiUrl.BASE_URL}/subscription`;
-}
+export const ApiUrl = {
+  BASE_URL: environment.apiBaseUrl,
+  signUp: `${environment.apiBaseUrl}/auth/signup`,
+  signIn: `${environment.apiBaseUrl}/auth/login`,
+  tenant: `${environment.apiBaseUrl}/tenant`,
+  product: `${environment.apiBaseUrl}/product`,
+  subscription: `${environment.apiBaseUrl}/subscription`,
+} as const;

@@ -115,10 +115,15 @@ export class Products implements OnInit {
   }
 
   deleteSelectedProducts() {
-    const selectedProducts = this.products().filter((product) => {
+    const productsToDelete = this.products().filter((product) => {
       return this.selectedProducts[product.id];
     });
-    selectedProducts.forEach((product) => {
+
+    if (productsToDelete.length === 0) {
+      this.alertService.showError('No products selected for deletion.');
+      return;
+    }
+    productsToDelete.forEach((product) => {
       this.service.deleteProduct(product.id);
     });
     this.alertService.showSuccess('Products deleted successfully');
