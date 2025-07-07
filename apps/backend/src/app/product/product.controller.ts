@@ -19,7 +19,6 @@ import {
 } from '@city-workspace/shared-models';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { TokenHelper } from '../../lib/helpers/token.helper';
-import { LogHelper } from '../../lib/helpers/log.helper';
 
 @Controller('product')
 export class ProductController {
@@ -63,7 +62,7 @@ export class ProductController {
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.service.delete(id);
   }
 }

@@ -39,8 +39,11 @@ export class Products implements OnInit {
   selectedOptions: { [key: number]: string } = {};
   selectedProducts: { [key: number]: boolean } = {};
   isDeleteDialogVisible = signal(false);
-  isDeleteLoading = false;
+  isMultipleDeleteDialogVisible = signal(false);
+  isDeleteLoading = signal(false);
   private alertService = inject(AlertService);
+  object = Object;
+  productToDelete: ProductEntity | null = null;
 
   ngOnInit(): void {
     this.getProducts();
@@ -63,11 +66,16 @@ export class Products implements OnInit {
     });
   }
 
-  gotoCreateProduct() {
-    this.router.navigate([WebUrl.createProduct]);
+  async gotoCreateProduct() {
+    try {
+      await this.router.navigate([WebUrl.createProduct]);
+    } catch (error) {
+      console.log('route error:', JSON.stringify(error));
+    }
   }
 
   async onSelectChange(event: any, product: ProductEntity) {
+    this.productToDelete = product;
     this.selectedOptions[product.id] = event.value;
     if (this.selectedOptions[product.id] === 'See Details') {
       await this.router.navigate([`${WebUrl.editProduct}/${product.id}`]);
@@ -80,24 +88,37 @@ export class Products implements OnInit {
     this.isDeleteDialogVisible?.set(true);
   }
 
+  showMultipleDeleteDialog() {
+    this.isMultipleDeleteDialogVisible?.set(true);
+  }
+
   hideDeleteDialog() {
     this.selectedOptions = {};
     this.isDeleteDialogVisible?.set(false);
   }
 
-  onDelete(product: ProductEntity) {
-    this.isDeleteLoading = true;
-    this.isDeleteDialogVisible.set(false);
-    this.service.deleteProduct(product.id).subscribe({
+  hideMultipleDeleteDialog() {
+    this.selectedOptions = {};
+    this.isMultipleDeleteDialogVisible?.set(false);
+    this.products().forEach((product) => {
+      this.selectedProducts[product.id] = false;
+    });
+  }
+
+  onDelete() {
+    this.isDeleteLoading.set(true);
+    this.service.deleteProduct(this.productToDelete!.id!).subscribe({
       next: () => {
-        this.isDeleteLoading = false;
         window.location.reload();
         this.alertService.showSuccess('Product deleted successfully');
+        this.isDeleteDialogVisible.set(false);
+        this.isDeleteLoading.set(false);
       },
       error: (error) => {
-        this.isDeleteLoading = false;
         const errorMessage = error.error.message?.message || error;
         this.alertService.showError(JSON.stringify(errorMessage));
+        this.isDeleteDialogVisible.set(false);
+        this.isDeleteLoading.set(false);
       },
     });
   }
@@ -114,7 +135,7 @@ export class Products implements OnInit {
     }
   }
 
-  deleteSelectedProducts() {
+  onDeleteMultiple() {
     const productsToDelete = this.products().filter((product) => {
       return this.selectedProducts[product.id];
     });
@@ -123,10 +144,23 @@ export class Products implements OnInit {
       this.alertService.showError('No products selected for deletion.');
       return;
     }
+
+    this.isDeleteLoading.set(true);
     productsToDelete.forEach((product) => {
-      this.service.deleteProduct(product.id);
+      this.service.deleteProduct(product.id).subscribe({
+        next: (data) => {
+          this.isDeleteLoading.set(false);
+          window.location.reload();
+          this.hideMultipleDeleteDialog();
+          this.alertService.showSuccess('Products deleted successfully');
+        },
+        error: (error) => {
+          this.isDeleteLoading.set(false);
+          this.hideMultipleDeleteDialog();
+          const errorMessage = error.error.message?.message || error;
+          this.alertService.showError(JSON.stringify(errorMessage));
+        },
+      });
     });
-    this.alertService.showSuccess('Products deleted successfully');
-    window.location.reload();
   }
 }

@@ -7,9 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AlertService } from '../../../lib/services/alert.service';
-import { CookieService } from 'ngx-cookie-service';
 import { CreateProductDto } from '@city-workspace/shared-models';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
@@ -34,9 +32,7 @@ import { ProductService } from '../product.service';
 })
 export class CreateProduct implements OnInit {
   formData!: FormGroup;
-  private router = inject(Router);
   private alertService = inject(AlertService);
-  private cookieService = inject(CookieService);
   private service = inject(ProductService);
   file: File | undefined = undefined;
   loading = false;

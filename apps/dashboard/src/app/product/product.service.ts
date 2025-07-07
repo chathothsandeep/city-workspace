@@ -7,10 +7,13 @@ import {
 } from '@city-workspace/shared-models';
 import { Observable } from 'rxjs';
 import { ApiUrl } from '../../lib/constants/url.constants';
+import { CookieService } from 'ngx-cookie-service';
+import { AppConstants } from '../../lib/constants/app.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private http = inject(HttpClient);
+  private cookie = inject(CookieService);
   createProduct(
     data: CreateProductDto,
     file?: File,
@@ -26,7 +29,10 @@ export class ProductService {
   }
 
   getProducts(): Observable<ProductEntity[]> {
-    return this.http.get<ProductEntity[]>(ApiUrl.product);
+    const tenantId = this.cookie.get(AppConstants.tenantId);
+    return this.http.get<ProductEntity[]>(ApiUrl.product, {
+      params: { tenantId },
+    });
   }
 
   updateProduct(
@@ -41,6 +47,7 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<ProductEntity> {
-    return this.http.delete<ProductEntity>(`${ApiUrl.product}/${id}`);
+    const url = `${ApiUrl.product}/${id}`;
+    return this.http.delete<ProductEntity>(url);
   }
 }

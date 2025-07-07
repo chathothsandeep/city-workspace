@@ -13,7 +13,8 @@
         pRipple
         label="Delete"
         severity="danger"
-        (onClick)="deleteSelectedProducts()"
+        (onClick)="showMultipleDeleteDialog()"
+        [disabled]="!selectedProducts || object.keys(selectedProducts).length === 0"
       />
       <p-button
         type="button"
@@ -53,7 +54,7 @@
           <td>
             <div class="w-20 h-16 flex items-center p-2 rounded-lg">
               <img
-                ngSrc="{{ webUrl.SERVER_BASE_URL + product.image }}"
+                ngSrc="{{ product.image ? webUrl.SERVER_BASE_URL + product.image : './.././../assets/images/no-pic.jpg' }}"
                 alt="product.name"
                 width="100"
                 height="80"
@@ -76,16 +77,27 @@
             />
           </td>
         </tr>
-        <app-dialog
-          [visible]="isDeleteDialogVisible()"
-          title="Delete Product"
-          message="Are you sure? You want to delete this product?"
-          okText="Delete"
-          (okEvent)="onDelete(product)"
-          (cancelEvent)="hideDeleteDialog()"
-        ></app-dialog>
       </ng-template>
     </p-table>
   </div>
+  <app-dialog
+    [visible]="isDeleteDialogVisible()"
+    title="Delete Product"
+    message="Are you sure? You want to delete this product?"
+    okText="Delete"
+    (okEvent)="onDelete()"
+    (cancelEvent)="hideDeleteDialog()"
+    [loading]="isDeleteLoading()"
+  ></app-dialog>
+
+  <app-dialog
+    [visible]="isMultipleDeleteDialogVisible()"
+    title="Delete Products"
+    message="Are you sure? You want to delete these products?"
+    okText="Delete"
+    (okEvent)="onDeleteMultiple()"
+    (cancelEvent)="hideMultipleDeleteDialog()"
+    [loading]="isDeleteLoading()"
+  ></app-dialog>
 </div>
 }

@@ -21,6 +21,11 @@ export const appRoutes: Route[] = [
         component: HomeComponent,
       },
       {
+        path: 'create-product',
+        title: 'Create Product',
+        component: CreateProduct,
+      },
+      {
         path: 'product',
         children: [
           {

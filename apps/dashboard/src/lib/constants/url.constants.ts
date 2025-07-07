@@ -14,7 +14,7 @@ export const WebUrl = {
   createTenant: '/tenant',
   subscription: '/subscription',
   products: '/product',
-  createProduct: '/product/create',
+  createProduct: 'product/create',
   editProduct: '/product/info',
 } as const;
 

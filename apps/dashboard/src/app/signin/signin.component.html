@@ -67,18 +67,16 @@
         }
       </div>
 
-      <div class="flex justify-center gap-4">
-        <p-button
-          class="lg w-full"
-          type="submit"
-          [disabled]="!signinForm.valid"
-          [loading]="loading()"
-          pRipple
-          icon="pi pi-user"
-          label="Sign In"
-          severity="success"
-        />
-      </div>
+      <p-button
+        class="lg w-full"
+        type="submit"
+        [disabled]="!signinForm.valid"
+        [loading]="loading()"
+        pRipple
+        icon="pi pi-user"
+        label="Sign In"
+        severity="success"
+      />
 
       <p class="text-center text-sm mt-4 text-primary">
         Don't have an account? <a [routerLink]="webUrl.signup">Sign Up</a>

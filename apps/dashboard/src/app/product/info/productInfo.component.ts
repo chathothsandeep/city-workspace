@@ -52,7 +52,7 @@ export class ProductInfo implements OnInit {
   url = URL;
   webUrl = WebUrl;
   isDeleteDialogVisible = signal(false);
-  isDeleteLoading = false;
+  isDeleteLoading = signal(false);
 
   ngOnInit(): void {
     this.initialiseFormData();
@@ -170,17 +170,19 @@ export class ProductInfo implements OnInit {
   }
 
   onDelete() {
-    this.isDeleteLoading = true;
-    this.isDeleteDialogVisible.set(false);
+    this.isDeleteLoading.set(true);
+
     this.service.deleteProduct(this.product().id).subscribe({
       next: () => {
-        this.isDeleteLoading = false;
+        this.isDeleteLoading.set(false);
+        this.isDeleteDialogVisible.set(false);
         this.router.navigate([WebUrl.products]).then(() => {
           this.alertService.showSuccess('Product deleted successfully');
         });
       },
       error: (error) => {
-        this.isDeleteLoading = false;
+        this.isDeleteLoading.set(false);
+        this.isDeleteDialogVisible.set(false);
         const errorMessage = error.error.message?.message || error;
         this.alertService.showError(JSON.stringify(errorMessage));
       },

@@ -28,8 +28,11 @@ export class ProductRepo {
     });
   }
   findAll(params: { [key: string]: any }): Promise<ProductEntity[]> {
+    const tenantId = parseInt(params.tenantId, 10);
     return db.product.findMany({
-      where: { ...params },
+      where: {
+        tenantId: tenantId,
+      },
     });
   }
   find(id: number): Promise<ProductEntity> {

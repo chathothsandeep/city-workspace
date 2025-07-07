@@ -20,7 +20,11 @@ import { ButtonModule } from 'primeng/button';
           severity="secondary"
           (click)="cancelEvent.emit()"
         />
-        <p-button label="{{ okText }}" (click)="okEvent.emit()" />
+        <p-button
+          label="{{ okText }}"
+          (click)="okEvent.emit()"
+          [loading]="loading"
+        />
       </div>
     </p-dialog>
   </div>`,
@@ -34,4 +38,5 @@ export class AppDialog {
   @Input() cancelText = 'Cancel';
   @Output() cancelEvent = new EventEmitter<void>();
   @Output() okEvent = new EventEmitter<void>();
+  @Input() loading = false;
 }
