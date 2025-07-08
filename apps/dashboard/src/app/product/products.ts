@@ -47,6 +47,10 @@ export class Products implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    this.initSelectedProducts();
+  }
+
+  initSelectedProducts() {
     this.products().forEach((product) => {
       this.selectedProducts[product.id] = false;
     });
@@ -100,9 +104,7 @@ export class Products implements OnInit {
   hideMultipleDeleteDialog() {
     this.selectedOptions = {};
     this.isMultipleDeleteDialogVisible?.set(false);
-    this.products().forEach((product) => {
-      this.selectedProducts[product.id] = false;
-    });
+    this.initSelectedProducts();
   }
 
   onDelete() {
@@ -162,5 +164,9 @@ export class Products implements OnInit {
         },
       });
     });
+  }
+
+  trackByFn(index: number, product: any) {
+    return product.id;
   }
 }
