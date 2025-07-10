@@ -15,6 +15,7 @@ import { AppConstants } from '../../lib/constants/app.constants';
 export class ProductService {
   private http = inject(HttpClient);
   private cookie = inject(CookieService);
+
   createProduct(
     data: CreateProductDto,
     file?: File,
