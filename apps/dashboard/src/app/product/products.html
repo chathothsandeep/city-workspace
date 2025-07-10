@@ -11,11 +11,11 @@
     <div class="flex items-center flex-row gap-2">
       <input
         type="text"
+        [(ngModel)]="searchQuery"
         variant="filled"
         pInputText
         placeholder="Search products"
         class="w-full h-10 pl-10"
-        (input)="onSearchChange($event)"
       />
 
       <p-button

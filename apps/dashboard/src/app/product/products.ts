@@ -82,12 +82,10 @@ export class Products implements OnInit {
       next: (paginatedData) => {
         this.products.set(paginatedData.data);
         this.count = paginatedData.count;
-        this.searchQuery = '';
         this.loading = false;
       },
       error: (error) => {
         console.log(error);
-        this.searchQuery = '';
         this.loading = false;
       },
     });
@@ -171,12 +169,6 @@ export class Products implements OnInit {
     this.first = event.first ?? 0;
     this.rows = event.rows ?? 10;
     this.getProducts();
-  }
-
-  onSearchChange(event: Event) {
-    event.preventDefault();
-    const target = event.target as HTMLInputElement;
-    this.searchQuery = target.value;
   }
 
   resetSearch() {
