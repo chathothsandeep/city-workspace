@@ -27,6 +27,6 @@ export class TableSkelton implements OnInit {
   @Input() headerTitles: string[] = ['Code', 'Name', 'Category', 'Quantity'];
 
   ngOnInit() {
-    this.products = Array.from({ length: 15 }).map((_, i) => `Item #${i}`);
+    this.products = Array.from({ length: 10 }).map((_, i) => `Item #${i}`);
   }
 }

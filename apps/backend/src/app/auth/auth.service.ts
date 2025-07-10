@@ -13,8 +13,9 @@ import {
   TokenEntity,
   UserEntity,
 } from '@city-workspace/shared-models';
-import { tokenExpiry } from '../../lib/const/appConstants';
+
 import { ConfigService } from '@nestjs/config';
+import { AppConstants } from '../../lib/const/appConstants';
 
 @Injectable()
 export class AuthService {
@@ -56,7 +57,7 @@ export class AuthService {
     let token;
     token = await this.jwtService.signAsync(user, {
       secret: this.config.get('security.jwtSecret'),
-      expiresIn: tokenExpiry,
+      expiresIn: AppConstants.tokenExpiry,
     });
     const tokenEntity: TokenEntity = {
       token: token,

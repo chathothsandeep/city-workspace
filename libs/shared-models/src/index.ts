@@ -11,3 +11,4 @@ export * from './subscription/subscription.dto';
 export * from './subscription/subscription.entity';
 export * from './product/product.dto';
 export * from './product/product.entity';
+export * from './pagination/paginatedData';

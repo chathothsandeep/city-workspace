@@ -9,7 +9,7 @@ import { AlertService } from '../lib/services/alert.service';
   imports: [RouterModule, ToastModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styles: ``,
   providers: [MessageService, CookieService, AlertService],
 })
 export class AppComponent {

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   CreateProductDto,
+  PaginatedData,
   ProductEntity,
   UpdateProductDto,
 } from '@city-workspace/shared-models';
@@ -28,11 +29,22 @@ export class ProductService {
     return this.http.get<ProductEntity>(`${ApiUrl.product}/${id}`);
   }
 
-  getProducts(): Observable<ProductEntity[]> {
+  getProducts(
+    page: number,
+    searchQuery?: string,
+  ): Observable<PaginatedData<ProductEntity[]>> {
     const tenantId = this.cookie.get(AppConstants.tenantId);
-    return this.http.get<ProductEntity[]>(ApiUrl.product, {
-      params: { tenantId },
-    });
+    const result = this.http.get<PaginatedData<ProductEntity[]>>(
+      ApiUrl.product,
+      {
+        params: {
+          tenantId: tenantId,
+          page: page,
+          searchQuery: searchQuery ?? '',
+        },
+      },
+    );
+    return result;
   }
 
   updateProduct(
