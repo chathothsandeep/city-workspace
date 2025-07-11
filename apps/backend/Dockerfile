@@ -11,8 +11,11 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 WORKDIR /app/apps/backend
+
+RUN npx prisma-multischema
+
 # Generate Prisma Client
-RUN npx prisma generate --schema=./prisma/schema.prisma
+RUN npx prisma generate
 
 # Build the NestJS backend
 RUN npx nx build backend
