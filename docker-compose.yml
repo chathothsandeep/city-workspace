@@ -13,7 +13,7 @@ services:
     image: city-fe
     container_name: fe-city
     ports:
-      - '8001:80'
+      - '80:80'
     depends_on:
       - be-city
     networks:
