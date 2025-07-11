@@ -6,6 +6,7 @@ import {
 } from '@city-workspace/shared-models';
 import { db } from '../../lib/db';
 import { FileUploadHelper } from '../../lib/helpers/fileUpload.helper';
+import { AppConstants } from '../../lib/const/appConstants';
 
 @Injectable()
 export class ProductRepo {
@@ -27,13 +28,37 @@ export class ProductRepo {
       });
     });
   }
-  findAll(params: { [key: string]: any }): Promise<ProductEntity[]> {
+
+  async findAll(params: {
+    [key: string]: any;
+  }): Promise<{ data: ProductEntity[]; count: number }> {
     const tenantId = parseInt(params.tenantId, 10);
-    return db.product.findMany({
+    const page = Number(params.page) || 1;
+    const serachQuery = params.searchQuery || '';
+    const skip = (page - 1) * AppConstants.paginationLimit;
+    const results = await db.product.findMany({
       where: {
         tenantId: tenantId,
+        name: {
+          contains: serachQuery,
+          mode: 'insensitive',
+        },
+      },
+      take: AppConstants.paginationLimit,
+      skip: skip,
+    });
+
+    const count = await db.product.count({
+      where: {
+        tenantId: tenantId,
+        name: {
+          contains: serachQuery,
+          mode: 'insensitive',
+        },
       },
     });
+
+    return { data: results, count: count };
   }
   find(id: number): Promise<ProductEntity> {
     return db.product.findUnique({ where: { id } });

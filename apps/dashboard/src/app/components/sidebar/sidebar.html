@@ -3,7 +3,7 @@
   <!-- Logo/Brand -->
   <div class="w-10 h-10 relative mb-8 ml-4">
     <a [routerLink]="webUrl.home"
-      ><img ngSrc="assets/images/logo.png" alt="logo" fill
+      ><img ngSrc="assets/images/logo.png" alt="logo" fill priority
     /></a>
   </div>
 
@@ -54,7 +54,7 @@
       </li>
       <li>
         <a
-          routerLink="/create-product"
+          [routerLink]="webUrl.service"
           class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors"
         >
           <svg
@@ -70,7 +70,7 @@
               d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
             ></path>
           </svg>
-          <span>Messages</span>
+          <span>Service</span>
         </a>
       </li>
       <li>

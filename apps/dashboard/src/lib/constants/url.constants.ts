@@ -16,6 +16,9 @@ export const WebUrl = {
   products: '/product',
   createProduct: 'product/create',
   editProduct: '/product/info',
+  service: '/service',
+  createService: '/service/create',
+  editService: '/service/info',
 } as const;
 
 export const ApiUrl = {
@@ -24,5 +27,6 @@ export const ApiUrl = {
   signIn: `${environment.apiBaseUrl}/auth/login`,
   tenant: `${environment.apiBaseUrl}/tenant`,
   product: `${environment.apiBaseUrl}/product`,
+  service: `${environment.apiBaseUrl}/service`,
   subscription: `${environment.apiBaseUrl}/subscription`,
 } as const;

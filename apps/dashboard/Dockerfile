@@ -1,26 +1,28 @@
 # Stage 1: Build
-FROM node:20-alpine as builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json yarn.lock* package-lock.json* ./
+COPY package.json ./
 RUN npm install --legacy-peer-deps && npm audit fix --force || true
 
-# Copy all files
 COPY . .
 
-# Build the Angular app
-RUN npx nx build dashboard --configuration=production
+RUN npx nx build dashboard --configuration=development
 
-# Stage 2: Run with Nginx
+
+RUN ls -lha /app/dist/apps/dashboard
+
+# Stage 2: Serve with NGINX
 FROM nginx:alpine
 
-# Copy nginx config
+RUN rm -rf /usr/share/nginx/html
+
+WORKDIR /usr/share/nginx/html
+
 COPY apps/dashboard/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built files from builder
-COPY --from=builder /app/dist/apps/dashboard /usr/share/nginx/html
+COPY --from=builder /app/dist/apps/dashboard/browser /usr/share/nginx/html
 
 EXPOSE 80
 

@@ -1,0 +1,173 @@
+<div class="flex flex-col gap-4 p-4">
+  <form
+    [formGroup]="formData"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+    class="flex flex-col gap-4"
+    (keydown.enter)="$event.preventDefault()"
+  >
+    <div class="flex flex-row items-center justify-between w-full">
+      <div class="text-lg font-bold mb-4">Create New Service</div>
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button
+          type="button"
+          label="Cancel"
+          (click)="onCancel()"
+          variant="outlined"
+        />
+        <p-button
+          type="submit"
+          label="Create Service"
+          [disabled]="!formData.valid"
+          [loading]="loading"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <label for="name" class="w-1/4"
+        >Service Name <span class="text-red-500">*</span></label
+      >
+      <div class="flex flex-col w-full">
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          required
+          placeholder="Service Name"
+          variant="filled"
+          class="w-full"
+        />
+        @if (
+          formData.get('name')?.invalid &&
+          (formData.get('name')?.dirty || formData.get('name')?.touched)
+        ) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (formData.get('name')?.hasError('required')) {
+              <p>Name is required.</p>
+            }
+            @if (formData.get('name')?.hasError('maxlength')) {
+              <p>Name must be max 50 characters long.</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <label for="description" class="w-1/4"
+        >Description<span class="text-red-500">*</span></label
+      >
+      <div class="flex flex-col w-full">
+        <textarea
+          pTextarea
+          id="description"
+          formControlName="description"
+          required
+          maxlength="250"
+          rows="3"
+          cols="30"
+          placeholder="Description"
+          variant="filled"
+          class="w-full"
+        ></textarea>
+        @if (
+          formData.get('description')?.invalid &&
+          (formData.get('description')?.dirty ||
+            formData.get('description')?.touched)
+        ) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (formData.get('description')?.hasError('required')) {
+              <p>Description is required.</p>
+            }
+            @if (formData.get('description')?.hasError('maxlength')) {
+              <p>Description must be max 250 characters long.</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <label for="price" class="w-1/4"
+        >Price<span class="text-red-500">*</span></label
+      >
+      <div class="flex flex-col w-full">
+        <input
+          id="price"
+          type="number"
+          pInputText
+          formControlName="price"
+          required
+          placeholder="Service Price"
+          variant="filled"
+          class="w-full"
+        />
+        @if (
+          formData.get('price')?.invalid &&
+          (formData.get('price')?.dirty || formData.get('price')?.touched)
+        ) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (formData.get('price')?.hasError('required')) {
+              <p>Price is required.</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <label for="tags" class="w-1/4">Tags</label>
+      <div class="flex flex-col w-full">
+        <input
+          id="tags"
+          type="text"
+          pInputText
+          formControlName="tags"
+          placeholder="Type the tags separated by commas and press enter"
+          variant="filled"
+          (keydown)="onTagInputKeyDown($event)"
+          class="w-full"
+        />
+        <div class="flex flex-row space-x-2 mt-4" *ngIf="tags().length > 0">
+          <p-chip
+            class="text-sm"
+            *ngFor="let tag of tags()"
+            label="{{ tag }}"
+            [removable]="true"
+            (onRemove)="removeTag(tag)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <label for="image" class="w-1/4">Image</label>
+      <input
+        pInputText
+        id="image"
+        variant="filled"
+        autocomplete="off"
+        formControlName="image"
+        class="w-full"
+        placeholder="Upload Service image"
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div class="flex flex-row">
+      <label for="Service-image-preview" class="w-1/4"></label>
+      <div class="flex flex-col w-full">
+        <img
+          *ngIf="file"
+          [src]="url.createObjectURL(file)!"
+          alt="Image"
+          width="100"
+          height="80"
+        />
+      </div>
+    </div>
+  </form>
+</div>

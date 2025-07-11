@@ -40,6 +40,20 @@ export interface Product {
   tenant?: Tenant | null;
 }
 
+export interface Service {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  tenantId: number | null;
+  tenant?: Tenant | null;
+  name: string;
+  description: string;
+  tags: string[];
+  image: string | null;
+  price: number;
+  priceSymbol: string | null;
+}
+
 export interface Subscription {
   id: number;
   name: string;
@@ -72,6 +86,7 @@ export interface Tenant {
   subscriptionId: number | null;
   subscription?: Subscription | null;
   products?: Product[];
+  services?: Service[];
 }
 
 export interface Post {

@@ -1,0 +1,15 @@
+import { Tenant } from "../tenant/tenant"
+
+model Service {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    tenantId    Int?
+    tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+    name        String
+    description String
+    tags        String[]
+    image       String?
+    price       Float
+    priceSymbol String?
+}

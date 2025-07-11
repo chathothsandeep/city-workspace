@@ -71,6 +71,31 @@ export function fakeProductComplete() {
     tenantId: undefined,
   };
 }
+export function fakeService() {
+  return {
+    updatedAt: faker.date.anytime(),
+    name: faker.person.fullName(),
+    description: faker.lorem.words(5),
+    tags: faker.lorem.words(5).split(' '),
+    image: undefined,
+    price: faker.number.float(),
+    priceSymbol: undefined,
+  };
+}
+export function fakeServiceComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    createdAt: new Date(),
+    updatedAt: faker.date.anytime(),
+    tenantId: undefined,
+    name: faker.person.fullName(),
+    description: faker.lorem.words(5),
+    tags: faker.lorem.words(5).split(' '),
+    image: undefined,
+    price: faker.number.float(),
+    priceSymbol: undefined,
+  };
+}
 export function fakeSubscription() {
   return {
     name: faker.person.fullName(),

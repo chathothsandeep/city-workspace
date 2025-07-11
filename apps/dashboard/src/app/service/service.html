@@ -1,0 +1,150 @@
+@if(loading){
+<app-table-skelton
+  [headerTitles]="['Id', 'Image', 'Name', 'Price', 'Actions']"
+></app-table-skelton>
+} @else{
+<div class="flex flex-col">
+  <div
+    class="flex flex-row justify-content-between items-center w-full mb-8 space-x-8"
+  >
+    <h1 class="text-xl font-bold">Services</h1>
+    <div class="flex items-center flex-row gap-2">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        variant="filled"
+        pInputText
+        placeholder="Search services"
+        class="w-full h-10 pl-10"
+      />
+
+      <p-button
+        type="button"
+        icon="pi pi-search"
+        pRipple
+        label="Search"
+        variant="outlined"
+        (onClick)="getServices()"
+        [disabled]="searchQuery.length < 3"
+      />
+
+      <p-button
+        icon="pi pi-times"
+        severity="secondary"
+        (onClick)="resetSearch()"
+      />
+    </div>
+
+    <div class="ml-auto flex gap-2">
+      <p-button
+        type="button"
+        icon="pi pi-trash"
+        pRipple
+        label="Delete"
+        severity="danger"
+        (onClick)="showMultipleDeleteDialog()"
+        [disabled]="!selectedServices || object.keys(selectedServices).length === 0"
+      />
+      <p-button
+        type="button"
+        icon="pi pi-plus"
+        pRipple
+        label="Create Service"
+        (onClick)="gotoCreateService()"
+        class="min-w-[200px]"
+      />
+    </div>
+  </div>
+
+  <ngx-datatable
+    [rows]="services()"
+    class="dark"
+    [loadingIndicator]="loading"
+    [columnMode]="ColumnMode.force"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    rowHeight="auto"
+    [reorderable]="reorderable"
+    [selected]="selectedServices"
+    [selectionType]="SelectionType.checkbox"
+    [selectAllRowsOnPage]="false"
+    (activate)="onActivate($event)"
+    (select)="onSelect($event)"
+  >
+    <ngx-datatable-column
+      [width]="30"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [draggable]="false"
+      [resizeable]="false"
+      [headerCheckboxable]="true"
+      [checkboxable]="true"
+    >
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Id"
+      prop="id"
+      [width]="60"
+    ></ngx-datatable-column>
+    <ngx-datatable-column name="Image" [sortable]="false">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div class="w-[50px] h-[50px]">
+          <img
+            ngSrc="{{ row.image ? webUrl.SERVER_BASE_URL + row.image : './.././../assets/images/no-pic.jpg' }}"
+            width="50"
+            height="50"
+            priority
+            alt="Image"
+          />
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+    <ngx-datatable-column name="Price" prop="price"></ngx-datatable-column>
+    <ngx-datatable-column name="Actions" [sortable]="false">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <p-select
+          [options]="options"
+          [(ngModel)]="selectedOptions[row.id]"
+          variant="filled"
+          placeholder="Select Action"
+          size="small"
+          filled
+          (onChange)="onSelectChange($event, row)"
+          appendTo="body"
+        />
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+
+  <div class="selected-column flex flex-row w-full items-end justify-between">
+    <div></div>
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="count"
+    />
+  </div>
+
+  <app-dialog
+    [visible]="isDeleteDialogVisible()"
+    title="Delete Service"
+    message="Are you sure? You want to delete this service?"
+    okText="Delete"
+    (okEvent)="onDelete()"
+    (cancelEvent)="hideDeleteDialog()"
+    [loading]="isDeleteLoading()"
+  ></app-dialog>
+
+  <app-dialog
+    [visible]="isMultipleDeleteDialogVisible()"
+    title="Delete Services"
+    message="Are you sure? You want to delete these services?"
+    okText="Delete"
+    (okEvent)="onDeleteMultiple()"
+    (cancelEvent)="hideMultipleDeleteDialog()"
+    [loading]="isDeleteLoading()"
+  ></app-dialog>
+</div>
+}

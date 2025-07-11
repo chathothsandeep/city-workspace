@@ -28,13 +28,15 @@ export class ProductService {
       HttpErrorHelper.handleError(error);
     }
   }
-  async findAll(params: { [key: string]: any }): Promise<ProductEntity[]> {
+  async findAll(params: {
+    [key: string]: any;
+  }): Promise<{ data: ProductEntity[]; count: number }> {
     try {
-      const products = await this.repo.findAll(params);
-      if (!products || products.length === 0) {
+      const results = await this.repo.findAll(params);
+      if (!results.data || results.data.length === 0) {
         throw new HttpException('No products found', HttpStatus.NOT_FOUND);
       }
-      return products;
+      return results;
     } catch (error) {
       HttpErrorHelper.handleError(error);
     }
@@ -50,7 +52,11 @@ export class ProductService {
       HttpErrorHelper.handleError(error);
     }
   }
-  async update(id: number, data: UpdateProductDto, file: any): Promise<ProductEntity> {
+  async update(
+    id: number,
+    data: UpdateProductDto,
+    file: any,
+  ): Promise<ProductEntity> {
     try {
       const product = await this.repo.update(id, data, file);
       if (!product) {

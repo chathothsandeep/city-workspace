@@ -14,6 +14,7 @@ import { AddressModule } from './address/address.module';
 import { TenantModule } from './tenant/tenant.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { ProductModule } from './product/product.module';
+import { ServicetModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProductModule } from './product/product.module';
     TenantModule,
     SubscriptionModule,
     ProductModule,
+    ServicetModule,
   ],
   controllers: [],
   providers: [Logger, AppThrottleGuardProvider, GlobalAuthGuardProvider],

@@ -11,7 +11,15 @@ import { Select } from 'primeng/select';
 import { TableSkelton } from '../components/table-skeleton';
 import { AppDialog } from '../components/dialog';
 import { AlertService } from '../../lib/services/alert.service';
-import { Checkbox } from 'primeng/checkbox';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import {
+  ActivateEvent,
+  ColumnMode,
+  NgxDatatableModule,
+  SelectEvent,
+  SelectionType,
+} from '@swimlane/ngx-datatable';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +32,9 @@ import { Checkbox } from 'primeng/checkbox';
     FormsModule,
     TableSkelton,
     AppDialog,
-    Checkbox,
+    NgxDatatableModule,
+    PaginatorModule,
+    InputTextModule,
   ],
   templateUrl: './products.html',
   styles: ``,
@@ -37,30 +47,41 @@ export class Products implements OnInit {
   webUrl = WebUrl;
   options = ['See Details', 'Delete'];
   selectedOptions: { [key: number]: string } = {};
-  selectedProducts: { [key: number]: boolean } = {};
   isDeleteDialogVisible = signal(false);
   isMultipleDeleteDialogVisible = signal(false);
   isDeleteLoading = signal(false);
   private alertService = inject(AlertService);
   object = Object;
   productToDelete: ProductEntity | null = null;
+  ColumnMode = ColumnMode;
+  reorderable = true;
+  selectedProducts: ProductEntity[] = [];
+  SelectionType = SelectionType;
+  first = 0;
+  rows = 10;
+  count = 0;
+  currentPage = 1;
+  searchQuery = '';
 
   ngOnInit(): void {
     this.getProducts();
-    this.initSelectedProducts();
   }
 
-  initSelectedProducts() {
-    this.products().forEach((product) => {
-      this.selectedProducts[product.id] = false;
-    });
+  onSelect({ selected }: SelectEvent<ProductEntity>) {
+    this.selectedProducts.splice(0, this.selectedProducts.length);
+    this.selectedProducts.push(...selected);
+  }
+
+  onActivate(event: ActivateEvent<ProductEntity>) {
+    console.log('Activate Event', event);
   }
 
   getProducts() {
     this.loading = true;
-    this.service.getProducts().subscribe({
-      next: (products) => {
-        this.products.set(products);
+    this.service.getProducts(this.currentPage, this.searchQuery).subscribe({
+      next: (paginatedData) => {
+        this.products.set(paginatedData.data);
+        this.count = paginatedData.count;
         this.loading = false;
       },
       error: (error) => {
@@ -71,11 +92,7 @@ export class Products implements OnInit {
   }
 
   async gotoCreateProduct() {
-    try {
-      await this.router.navigate([WebUrl.createProduct]);
-    } catch (error) {
-      console.log('route error:', JSON.stringify(error));
-    }
+    await this.router.navigate([WebUrl.createProduct]);
   }
 
   async onSelectChange(event: any, product: ProductEntity) {
@@ -99,65 +116,46 @@ export class Products implements OnInit {
   hideDeleteDialog() {
     this.selectedOptions = {};
     this.isDeleteDialogVisible?.set(false);
+    this.isDeleteLoading.set(false);
   }
 
   hideMultipleDeleteDialog() {
     this.selectedOptions = {};
     this.isMultipleDeleteDialogVisible?.set(false);
-    this.initSelectedProducts();
+    this.isDeleteLoading.set(false);
   }
 
   onDelete() {
     this.isDeleteLoading.set(true);
     this.service.deleteProduct(this.productToDelete!.id!).subscribe({
       next: () => {
-        window.location.reload();
+        this.getProducts();
+        this.hideDeleteDialog();
         this.alertService.showSuccess('Product deleted successfully');
-        this.isDeleteDialogVisible.set(false);
-        this.isDeleteLoading.set(false);
       },
       error: (error) => {
         const errorMessage = error.error.message?.message || error;
+        this.hideDeleteDialog();
         this.alertService.showError(JSON.stringify(errorMessage));
-        this.isDeleteDialogVisible.set(false);
-        this.isDeleteLoading.set(false);
       },
     });
   }
 
-  selectAllProducts(event: any) {
-    if (event.checked) {
-      this.products().forEach((product) => {
-        this.selectedProducts[product.id] = true;
-      });
-    } else {
-      this.products().forEach((product) => {
-        this.selectedProducts[product.id] = false;
-      });
-    }
-  }
-
   onDeleteMultiple() {
-    const productsToDelete = this.products().filter((product) => {
-      return this.selectedProducts[product.id];
-    });
-
-    if (productsToDelete.length === 0) {
+    if (this.selectedProducts.length === 0) {
       this.alertService.showError('No products selected for deletion.');
       return;
     }
 
     this.isDeleteLoading.set(true);
-    productsToDelete.forEach((product) => {
+    this.selectedProducts.forEach((product) => {
       this.service.deleteProduct(product.id).subscribe({
-        next: (data) => {
-          this.isDeleteLoading.set(false);
-          window.location.reload();
+        next: async (data) => {
+          await this.getProducts();
           this.hideMultipleDeleteDialog();
           this.alertService.showSuccess('Products deleted successfully');
         },
         error: (error) => {
-          this.isDeleteLoading.set(false);
           this.hideMultipleDeleteDialog();
           const errorMessage = error.error.message?.message || error;
           this.alertService.showError(JSON.stringify(errorMessage));
@@ -166,7 +164,15 @@ export class Products implements OnInit {
     });
   }
 
-  trackByFn(index: number, product: any) {
-    return product.id;
+  onPageChange(event: PaginatorState) {
+    this.currentPage = Math.floor(event.first! / event.rows!) + 1;
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 10;
+    this.getProducts();
+  }
+
+  resetSearch() {
+    this.searchQuery = '';
+    this.getProducts();
   }
 }
