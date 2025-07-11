@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.11.1
+ * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.11.1",
+  engine: "f40f79ec31188888a2e33acda0ecc8fd10a853a9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -155,6 +155,19 @@ exports.Prisma.ProductScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  tags: 'tags',
+  image: 'image',
+  price: 'price',
+  priceSymbol: 'priceSymbol'
+};
+
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -244,6 +257,7 @@ exports.UserRole = exports.$Enums.UserRole = {
 exports.Prisma.ModelName = {
   Address: 'Address',
   Product: 'Product',
+  Service: 'Service',
   Subscription: 'Subscription',
   Tenant: 'Tenant',
   Post: 'Post',

@@ -9,6 +9,9 @@ import { MinimalLayout } from './layouts/minimal.layout';
 import { Products } from './product/products';
 import { ProductInfo } from './product/info/productInfo.component';
 import { CreateProduct } from './product/create/addProduct.component';
+import { CreateService } from './service/create/addService.component';
+import { ServiceComponent } from './service/service';
+import { ServiceInfo } from './service/info/serviceInfo.component';
 
 export const appRoutes: Route[] = [
   {
@@ -24,6 +27,26 @@ export const appRoutes: Route[] = [
         path: 'create-product',
         title: 'Create Product',
         component: CreateProduct,
+      },
+      {
+        path: 'service',
+        children: [
+          {
+            path: '',
+            title: 'Service',
+            component: ServiceComponent,
+          },
+          {
+            path: 'create',
+            title: 'Create Service',
+            component: CreateService,
+          },
+          {
+            path: 'info/:id',
+            title: 'Create Details',
+            component: ServiceInfo,
+          },
+        ],
       },
       {
         path: 'product',
