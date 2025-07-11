@@ -1,8 +1,15 @@
+// export const environment = {
+//   production: false,
+//   serverBaseUrl: 'http://localhost:8000',
+//   dashboardBaseUrl: 'http://localhost:4200',
+//   apiBaseUrl: 'http://localhost:8000/api/v1',
+// };
+
 export const environment = {
-  production: false,
-  serverBaseUrl: 'http://localhost:8000',
-  dashboardBaseUrl: 'http://localhost:4200',
-  apiBaseUrl: 'http://localhost:8000/api/v1',
+  production: true,
+  serverBaseUrl: '',
+  dashboardBaseUrl: '',
+  apiBaseUrl: '/api/v1',
 };
 
 export const WebUrl = {
