@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@import 'primeicons/primeicons.css';
+@import './fonts.css';
+@import './table.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Gantari', sans-serif;
+}

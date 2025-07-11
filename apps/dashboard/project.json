@@ -20,7 +20,7 @@
           "apps/dashboard/src/assets"
         ],
         "styles": [
-          "apps/dashboard/src/styles.scss",
+          "apps/dashboard/src/styles.css",
           "apps/dashboard/src/fonts.css"
         ],
         "scripts": [],
