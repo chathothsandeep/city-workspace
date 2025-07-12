@@ -12,6 +12,7 @@ COPY . .
 
 WORKDIR /app/apps/backend
 
+# Generate Prisma multischema
 RUN npx prisma-multischema
 
 # Generate Prisma Client
@@ -31,8 +32,8 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 
 # Copy Prisma client generated files
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+# COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+# COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Copy app build and config files
 COPY --from=builder /app/dist/apps/backend ./dist
