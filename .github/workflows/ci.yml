@@ -1,4 +1,4 @@
-name: Build and Deploy to EC2
+kname: Build and Deploy to EC2
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Build and Deploy to EC2
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -38,17 +38,17 @@ jobs:
         run: |
           docker save city-fe | gzip > city-fe.tar.gz
 
-      - name: Copy Docker Images & Compose File to EC2
+      - name: Copy Docker Images & K8s Manifests to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: |
-            city-be.tar.gz,
-            city-fe.tar.gz,
-            docker-compose.yml
-          target: '/home/${{ secrets.EC2_USER }}/deployment'
+            city-be.tar.gz
+            city-fe.tar.gz
+            k8s/
+          target: /home/${{ secrets.EC2_USER }}/deployment
 
       - name: Deploy via SSH on EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -58,8 +58,16 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/${{ secrets.EC2_USER }}/deployment
-            sudo docker compose down
-            sudo docker system prune -af
-            sudo docker load < city-be.tar.gz
-            sudo docker load < city-fe.tar.gz
-            sudo docker compose up -d
+
+            docker load < city-be.tar.gz
+            docker load < city-fe.tar.gz
+
+            mkdir -p ~/.kube
+            sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+            sudo chown $USER:$USER ~/.kube/config
+
+            kubectl apply -f k8s/
+
+            kubectl rollout status deployment/city-backend -n city-ns
+            kubectl rollout status deployment/city-frontend -n city-ns
+

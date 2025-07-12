@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: city-backend
+  namespace: city-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: city-backend
+  template:
+    metadata:
+      labels:
+        app: city-backend
+    spec:
+      containers:
+        - name: city-backend
+          image: city-be:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: backend-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: city-backend-service
+  namespace: city-ns
+spec:
+  selector:
+    app: city-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
+
