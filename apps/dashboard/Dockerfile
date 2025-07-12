@@ -8,10 +8,7 @@ RUN npm install --legacy-peer-deps && npm audit fix --force || true
 
 COPY . .
 
-RUN npx nx build dashboard --configuration=development
-
-
-RUN ls -lha /app/dist/apps/dashboard
+RUN npx nx build dashboard --configuration=production
 
 # Stage 2: Serve with NGINX
 FROM nginx:alpine
