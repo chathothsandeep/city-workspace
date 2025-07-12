@@ -12,6 +12,13 @@ export const environment = {
   apiBaseUrl: '/api/v1',
 };
 
+// export const environment = {
+//   production: process.env.NODE_ENV?.toString() === 'production',
+//   serverBaseUrl: process.env.SERVER_BASE_URL,
+//   dashboardBaseUrl: process.env.DASHBOARD_BASE_URL,
+//   apiBaseUrl: process.env.API_BASE_URL,
+// };
+
 export const WebUrl = {
   SERVER_BASE_URL: environment.serverBaseUrl,
   DASHBOARD_BASE_URL: environment.dashboardBaseUrl,
