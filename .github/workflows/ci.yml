@@ -1,4 +1,4 @@
-name: Build and Deploy to EC2
+kname: Build and Deploy to EC2
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Updated to v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -38,40 +38,43 @@ jobs:
         run: |
           docker save city-fe | gzip > city-fe.tar.gz
 
-      # NEW STEP: Transfer all required files to EC2
+      # Updated SCP action version
       - name: Transfer files to EC2
-        uses: appleboy/scp-action@v1.0.1
+        uses: appleboy/scp-action@v0.1.7  # Correct latest stable version
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "city-be.tar.gz,city-fe.tar.gz,k8s/*"
-          target: "."
-          strip_components: 1  # Ensures clean directory structure
+          target: "deployment_files/"
+          strip_components: 1
 
+      # Updated SSH action version
       - name: Deploy via SSH on EC2
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.0  # Correct latest stable version
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            cd deployment_files
+            
             # Load Docker images
             docker load -i city-be.tar.gz
             docker load -i city-fe.tar.gz
             
-            # Clean up transferred files
+            # Clean up files
             rm city-be.tar.gz city-fe.tar.gz
             
-            # Configure Kubernetes access
+            # Configure Kubernetes
             mkdir -p ~/.kube
-            sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+            [ -f /etc/kubernetes/admin.conf ] && sudo cp /etc/kubernetes/admin.conf ~/.kube/config
             sudo chown $(id -u):$(id -g) ~/.kube/config
             
-            # Ensure namespace exists
+            # Create namespace if not exists
             kubectl create namespace city-ns --dry-run=client -o yaml | kubectl apply -f -
             
-            # Apply Kubernetes manifests
+            # Apply manifests
             kubectl apply -f k8s/
             
             # Verify deployments
