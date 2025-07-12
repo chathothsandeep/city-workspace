@@ -7,17 +7,10 @@
 
 export const environment = {
   production: true,
-  serverBaseUrl: '',
-  dashboardBaseUrl: '',
-  apiBaseUrl: '/api/v1',
+  serverBaseUrl: 'http://3.111.187.224:8000',
+  dashboardBaseUrl: 'http://3.111.187.224',
+  apiBaseUrl: 'http://3.111.187.224:8000/api/v1',
 };
-
-// export const environment = {
-//   production: process.env.NODE_ENV?.toString() === 'production',
-//   serverBaseUrl: process.env.SERVER_BASE_URL,
-//   dashboardBaseUrl: process.env.DASHBOARD_BASE_URL,
-//   apiBaseUrl: process.env.API_BASE_URL,
-// };
 
 export const WebUrl = {
   SERVER_BASE_URL: environment.serverBaseUrl,
