@@ -58,6 +58,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/${{ secrets.EC2_USER }}/deployment
-            docker load < city-be.tar.gz
-            docker load < city-fe.tar.gz
-            docker-compose up -d --remove-orphans
+            sudo docker load < city-be.tar.gz
+            sudo docker load < city-fe.tar.gz
+            sudo docker-compose up -d --remove-orphans
