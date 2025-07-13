@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4  # Updated to v4
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -38,45 +38,40 @@ jobs:
         run: |
           docker save city-fe | gzip > city-fe.tar.gz
 
-      # Updated SCP action version
       - name: Transfer files to EC2
-        uses: appleboy/scp-action@v0.1.7  # Correct latest stable version
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "city-be.tar.gz,city-fe.tar.gz,k8s/*"
-          target: "deployment_files/"
+          target: "~"
           strip_components: 1
 
-      # Updated SSH action version
       - name: Deploy via SSH on EC2
-        uses: appleboy/ssh-action@v1.2.0  # Correct latest stable version
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd deployment_files
+            # Navigate to home directory where files were transferred
+            cd ~
             
             # Load Docker images
             docker load -i city-be.tar.gz
             docker load -i city-fe.tar.gz
             
-            # Clean up files
+            # Clean up image files
             rm city-be.tar.gz city-fe.tar.gz
             
-            # Configure Kubernetes
-            mkdir -p ~/.kube
-            [ -f /etc/kubernetes/admin.conf ] && sudo cp /etc/kubernetes/admin.conf ~/.kube/config
-            sudo chown $(id -u):$(id -g) ~/.kube/config
-            
-            # Create namespace if not exists
-            kubectl create namespace city-ns --dry-run=client -o yaml | kubectl apply -f -
-            
-            # Apply manifests
+            # Apply Kubernetes manifests
             kubectl apply -f k8s/
             
-            # Verify deployments
+            # Rollout status check
             kubectl rollout status deployment/city-backend -n city-ns --timeout=300s
             kubectl rollout status deployment/city-frontend -n city-ns --timeout=300s
+           
+            # Clean up transferred files
+            rm -f city-be.tar.gz city-fe.tar.gz
+            rm -rf k8s
