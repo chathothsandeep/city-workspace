@@ -44,9 +44,9 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "city-be.tar.gz,city-fe.tar.gz,k8s/*"
-          target: "~"
-          strip_components: 1
+          source: "city-be.tar.gz,city-fe.tar.gz,k8s"
+          target: "/home/ubuntu"
+          strip_components: 0
 
       - name: Deploy via SSH on EC2
         uses: appleboy/ssh-action@v1.2.0
@@ -55,23 +55,22 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Navigate to home directory where files were transferred
-            cd ~
-            
+            cd /home/ubuntu
+
             # Load Docker images
             docker load -i city-be.tar.gz
             docker load -i city-fe.tar.gz
-            
-            # Clean up image files
+
+            # Clean up tarballs
             rm city-be.tar.gz city-fe.tar.gz
-            
+
             # Apply Kubernetes manifests
             kubectl apply -f k8s/
-            
-            # Rollout status check
+
+            # Wait for rollout to complete
             kubectl rollout status deployment/city-backend -n city-ns --timeout=300s
             kubectl rollout status deployment/city-frontend -n city-ns --timeout=300s
-           
-            # Clean up transferred files
-            rm -f city-be.tar.gz city-fe.tar.gz
+
+            # Clean up k8s files
             rm -rf k8s
+
