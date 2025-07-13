@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: city-backend
+  name: be-city
   namespace: city-ns
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: city-backend
+      app: be-city
   template:
     metadata:
       labels:
-        app: city-backend
+        app: be-city
     spec:
       containers:
-        - name: city-backend
+        - name: be-city
           image: city-be:latest
           imagePullPolicy: Never
           ports:
@@ -23,11 +23,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: city-backend-service
+  name: be-city
   namespace: city-ns
 spec:
   selector:
-    app: city-backend
+    app: be-city
   ports:
     - protocol: TCP
       port: 8000
