@@ -58,11 +58,11 @@ jobs:
             cd /home/ubuntu
 
             # Load Docker images
-            docker load -i city-be.tar.gz
-            docker load -i city-fe.tar.gz
+            sudo  docker load -i city-be.tar.gz
+            sudo docker load -i city-fe.tar.gz
 
             # Clean up tarballs
-            rm city-be.tar.gz city-fe.tar.gz
+            sudo rm city-be.tar.gz city-fe.tar.gz
 
             # Apply Kubernetes manifests
             kubectl apply -f k8s/
@@ -72,5 +72,5 @@ jobs:
             kubectl rollout status deployment/city-frontend -n city-ns --timeout=300s
 
             # Clean up k8s files
-            rm -rf k8s
+            sudo rm -rf k8s
 
