@@ -68,8 +68,8 @@ jobs:
             kubectl apply -f k8s/
 
             # Wait for rollout to complete
-            kubectl rollout status deployment/city-backend -n city-ns --timeout=300s
-            kubectl rollout status deployment/city-frontend -n city-ns --timeout=300s
+            kubectl rollout status deployment/be-city -n city-ns --timeout=300s
+            kubectl rollout status deployment/be-city -n city-ns --timeout=300s
 
             # Clean up k8s files
             sudo rm -rf k8s
