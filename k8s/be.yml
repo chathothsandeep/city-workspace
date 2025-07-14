@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: be-city
-          image: city-be:latest
+          image: __BE_IMAGE_PATH__
           imagePullPolicy: Never
           ports:
             - containerPort: 8000

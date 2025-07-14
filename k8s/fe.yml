@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: fe-city
-          image: city-fe:latest
+          image: __FE_IMAGE_PATH__
           imagePullPolicy: Never
           ports:
             - containerPort: 80

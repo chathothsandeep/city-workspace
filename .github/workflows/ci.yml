@@ -22,21 +22,32 @@ jobs:
           mkdir -p apps/backend
           echo "${{ secrets.ENV_FILE }}" > apps/backend/.env
 
+      - name: Define image tags
+        id: set-image-tags
+        run: |
+          echo "BE_PROD_IMAGE_PATH=city-be:${{ github.sha }}" >> $GITHUB_ENV
+          echo "FE_PROD_IMAGE_PATH=city-fe:${{ github.sha }}" >> $GITHUB_ENV
+
       - name: Build Backend Image
         run: |
-          docker build -t city-be -f apps/backend/Dockerfile .
+          docker build -t $BE_PROD_IMAGE_PATH -f apps/backend/Dockerfile .
 
       - name: Build Frontend Image
         run: |
-          docker build -t city-fe -f apps/dashboard/Dockerfile .
+          docker build -t $FE_PROD_IMAGE_PATH -f apps/dashboard/Dockerfile .
 
       - name: Save Backend Image to File
         run: |
-          docker save city-be | gzip > city-be.tar.gz
+          docker save $BE_PROD_IMAGE_PATH | gzip > city-be.tar.gz
 
       - name: Save Frontend Image to File
         run: |
-          docker save city-fe | gzip > city-fe.tar.gz
+          docker save $FE_PROD_IMAGE_PATH | gzip > city-fe.tar.gz
+
+      - name: Update image paths in Kubernetes manifests
+        run: |
+          sed -i "s|__BE_IMAGE_PATH__|$BE_PROD_IMAGE_PATH|g" k8s/be.yml
+          sed -i "s|__FE_IMAGE_PATH__|$FE_PROD_IMAGE_PATH|g" k8s/fe.yml
 
       - name: Transfer files to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -57,20 +68,14 @@ jobs:
           script: |
             cd /home/ubuntu
 
-            # Load Docker images
-            sudo  docker load -i city-be.tar.gz
+            sudo docker load -i city-be.tar.gz
             sudo docker load -i city-fe.tar.gz
 
-            # Clean up tarballs
             sudo rm city-be.tar.gz city-fe.tar.gz
 
-            # Apply Kubernetes manifests
             kubectl apply -f k8s/
-
-            # Wait for rollout to complete
             kubectl rollout status deployment/be-city -n city-ns --timeout=300s
-            kubectl rollout status deployment/be-city -n city-ns --timeout=300s
+            kubectl rollout status deployment/fe-city -n city-ns --timeout=300s
 
-            # Clean up k8s files
             sudo rm -rf k8s
 
